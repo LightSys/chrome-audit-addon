@@ -12,6 +12,11 @@ The goal of this project would be to create a Chrome add-on which verifies that 
 
 ---
 
+## Documentation
+[manifest.json](doc/manifest.json.md)
+
+---
+
 ## Add-on Development
 
 ### Add-on Procedure 
