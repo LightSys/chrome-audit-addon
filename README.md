@@ -1,14 +1,13 @@
-#Security Audit add-on for Firefox or Chrome
+# Security Audit add-on for Firefox or Chrome
+
 Many organizations struggle with security risks created by users installing risky add-ons to browsers. This is
-especially true in bring-your-own-device environments or work-from-home environments. This project creates a
+especially true in bring-your-own-device environments or work-from-home environments. This project is a
 browser add-on to audit the browser's security.
 Languages/Tools: JavaScript, with some XML, JSON, HTML, and CSS.
-Can Dev on Mac: Y
-Can Dev on Linux: Y
-Can Dev on Windows: Y
 Security Classification: SEC2 - Missions Only
-Can Be Used In Promo Materials: Y
-Your edit was saved. ×
+
+## Introduction
+
 The goal of this project would be to create a Firefox or Chrome add-on which verifies that the browser's security
 configuration is acceptable and only allows sign-in to secured areas if the configuration meets requirements.
 Missions organizations are often exposed far more than other organizations to browser security lapses, since
