@@ -4,18 +4,11 @@
   "version": "1.0",
 
   "browser_action": {
-    "default_icon": "icon/icon16x16.png",
+    "default_icon": "icon/icon48x48.png",
     "default_popup": "popup.html",
     "default_title": "Addon Auditor"
   },
-
-  "content_scripts": [
-    {
-    "matches": ["<all_urls>"],
-    "js": ["checkAddons.js"]
-    }
-  ],
-
+  
   "background": {
     "scripts": ["checkAddons.js"],
     "persistent": false
