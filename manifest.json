@@ -8,14 +8,7 @@
     "default_popup": "popup.html",
     "default_title": "Addon Auditor"
   },
-
-  "content_scripts": [
-    {
-    "matches": ["<all_urls>"],
-    "js": ["checkAddons.js"]
-    }
-  ],
-
+  
   "background": {
     "scripts": ["checkAddons.js"],
     "persistent": false
