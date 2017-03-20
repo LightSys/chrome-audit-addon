@@ -7,4 +7,13 @@
     "default_popup": "popup.html",
     "default_title": "Addon Auditor"
   }
+      [
+        "<all_urls>"
+      ],
+      "js":
+      [
+        "content.js"
+      ]
+    }
+  ]
 }
