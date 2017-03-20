@@ -1,5 +1,4 @@
-Project Proposal
-Security Audit add-on for Firefox or Chrome
+#Security Audit add-on for Firefox or Chrome
 Many organizations struggle with security risks created by users installing risky add-ons to browsers. This is
 especially true in bring-your-own-device environments or work-from-home environments. This project creates a
 browser add-on to audit the browser's security.
