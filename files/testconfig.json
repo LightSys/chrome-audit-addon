@@ -1,1 +1,9 @@
-test config file.
+{
+  "whitelist": [
+    "Chrome Audit Addon",
+    "Adblock Plus",
+    "Adblock",
+    "Hover Zoom",
+    "Evernote Web Clipper"
+  ] 
+}
