@@ -1,3 +1,5 @@
 //Popup.js
-alert("hello");
-console.log("testing");
+
+var xhr = new XMLHttpRequest();
+xhr.onreadystatechange = handleStateChange;
+xhr.open("GET", chrome.extension.getURL('http'))
