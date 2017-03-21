@@ -1,5 +1,6 @@
 //Popup.js
 
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = handleStateChange;
-xhr.open("GET", chrome.extension.getURL('http'))
+$.get('https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json', function(json) {
+  var parsedJson = JSON.parse(json);
+    alert(parsedJson.whitelist);
+});
