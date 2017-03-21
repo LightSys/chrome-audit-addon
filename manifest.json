@@ -2,6 +2,7 @@
   "manifest_version": 2,
   "name": "Chrome Audit Addon",
   "version": "1.0",
+
   "description": "Audits browser addons and settings",
 
   "icons": { "16": "icon/icon16x16.png",
@@ -12,6 +13,8 @@
     "default_popup": "popup.html",
     "default_title": "Addon Auditor"
   },
+
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
   "background": {
     "scripts": ["libraries/jquery-3.2.0.min.js", "eventPage.js"],
