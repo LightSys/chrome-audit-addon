@@ -3,6 +3,7 @@
 The `manifest.json` file is a file that the Chrome browser reads to obtain important information about the add-on. Below is a line-by-line explanation of what exactly this file does.
 
 ```json
+{
   "manifest_version": 2,
   "name": "Chrome Audit Addon",
   "version": "1.0",
@@ -17,7 +18,8 @@ These fields are basic information about the add-on. The only one that may seem 
             "128": "icon/icon128x128.png" }, 
 ```
 
-This sets the different icons for Chrome to use with the extension. The `"16"` and `"48"` icons are simply scaled version of the full icon. The `"128"` icon is in fact a 96 by 96 pixel icon, with a padding of 16 pixels of transparency on each side, as is recommended. _(Note: The `"128"` icon is only used during installation and in the Chrome Web Store)._
+This sets the different icons for Chrome to use with the extension. The `"16"` and `"48"` icons are simply scaled version of the full icon. The `"128"` icon is in fact a 96 by 96 pixel icon, with a padding of 16 pixels of transparency on each side, as is recommended. 
+_(Note: The `"128"` icon is only used during installation and in the Chrome Web Store)._
 
 ```json
   "browser_action": {
@@ -37,3 +39,13 @@ There is also the option to add a `"default_icon"` field, but if it is left unsp
   },
 ```
 
+This section of the file specifies that the `checkAddons.js` script should be run as an event page. When this script is run is specified in the script itself. 
+
+```json 
+  "permissions": [
+    "management"
+  ]
+}
+```
+
+This requests the `"management"` permission from Chrome, which allows the add-on access to the `chrome.management` API.
