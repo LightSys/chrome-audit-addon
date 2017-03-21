@@ -18,13 +18,13 @@ Documentation for specific files can be found in the `doc` directory. Below are 
 
 **Chrome-Audit-Addon**
 
-|-- [css/popup.css](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/css/popup.css.md)
-|-- [files/testconfig.json](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md)
-|-- [libraries/jquery-3.2.0.min.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/libraries/jquery-3.2.0.min.js.md)
-|-- [eventpage.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/eventpage.js.md)
-|-- [manifest.json](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/manifest.json.md)
-|-- [popup.html](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.html.md)
-|-- [popup.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.js.md)
+-- [css/popup.css](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/css/popup.css.md)
+-- [files/testconfig.json](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md)
+-- [libraries/jquery-3.2.0.min.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/libraries/jquery-3.2.0.min.js.md)
+-- [eventpage.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/eventpage.js.md)
+-- [manifest.json](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/manifest.json.md)
+-- [popup.html](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.html.md)
+-- [popup.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.js.md)
 
 ---
 
