@@ -34,12 +34,12 @@ There is also the option to add a `"default_icon"` field, but if it is left unsp
 
 ```json
   "background": {
-    "scripts": ["checkAddons.js"],
+    "scripts": ["libraries/jquery-3.2.0.min.js", "eventPage.js"],
     "persistent": false
   },
 ```
 
-This section of the file specifies that the `checkAddons.js` script should be run as an event page. When this script is run is specified in the script itself. 
+This section of the file specifies scripts that are to be run as event pages. When these scripts are run is specified in the scripts themselves. 
 
 ```json 
   "permissions": [
