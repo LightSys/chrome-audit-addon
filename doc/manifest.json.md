@@ -33,13 +33,19 @@ The `"browser_action"` field places an icon for the add-on in the Chrome toolbar
 There is also the option to add a `"default_icon"` field, but if it is left unspecified, it uses the closest size from the icons specified above, scales it (if it isn't already the exact same size), and then displays it. 
 
 ```json
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+```
+
+This sets the security policy to allow `eval()` and its relatives, like `setTimeout(String)`, `setInterval(String)`, and `new Function(String)`.
+
+```json
   "background": {
-    "scripts": ["checkAddons.js"],
+    "scripts": ["libraries/jquery-3.2.0.min.js", "eventPage.js"],
     "persistent": false
   },
 ```
 
-This section of the file specifies that the `checkAddons.js` script should be run as an event page. When this script is run is specified in the script itself. 
+This section of the file specifies scripts that are to be run as event pages. When these scripts are run is specified in the scripts themselves. 
 
 ```json 
   "permissions": [
