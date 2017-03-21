@@ -18,10 +18,10 @@ chrome.runtime.onInstalled.addListener(function() {
         if(item.type == "extension"){
           // if yes, check it agains the whitelist
             // if !whitelisted, set unsafe
-          alert("THIS IS AN EXTENSION " + item.id + " : (" + item.type + ") " + item.name);
+          //alert("THIS IS AN EXTENSION " + item.id + " : (" + item.type + ") " + item.name);
         }
         // else do nothing because we only care about extensions
      }
   });
-  alert("hello install");
+  //alert("hello install");
 });
