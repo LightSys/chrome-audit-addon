@@ -23,18 +23,17 @@ chrome.runtime.onInstalled.addListener(function() {
 
           //create array to store IDs in
           var whitelistIds = new Array();
-          
+
           // get each json object, store its ID in the array.
           for (var obj in parsedJson.whitelist) {
             whitelistIds.push(parsedJson.whitelist[obj].id);
           }
 
-          // loop through extensions, compare with whitelist
-          installedExtensions.forEach(function(extension) {
-            if(whitelistIds.indexOf(extension.id) > -1) {
-              alert(extension.name + " is in whitelist.");
-            } else {
-              alert(extension.name + " is not in whitelist.");
+          // compare the extensions, and get a list of bad addons back
+          compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
+            //if there are bad addons, say so
+            if(badAddons.length > 1) {
+              alert("These addons are not in the whitelist: " + badAddons);
             }
           });
         });
@@ -42,8 +41,19 @@ chrome.runtime.onInstalled.addListener(function() {
     }
   }
 
+  function compareExtensions(whitelistIds, installedExtensions, done) {
+    var badAddons = new Array();
+    // loop through extensions, compare with whitelist
+    installedExtensions.forEach(function(extension) {
+      if(whitelistIds.indexOf(extension.id) < 0) {
+        badAddons.push(extension.name);
+      }
+    });
+    done(badAddons)
+  }
+
   // this function gets each installed extension and sends the list back to the caller
-  function getInstalledExtenstions(done) {
+  function getInstalledExtensions(done) {
     // This gets all Chrome extensions and apps
     chrome.management.getAll(function(items){
       var installedExtensions = new Array();
