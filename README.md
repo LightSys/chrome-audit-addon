@@ -4,11 +4,15 @@
 
 Many organizations struggle with security risks created by users installing risky add-ons to browsers. This is especially true in bring-your-own-device environments or work-from-home environments. This project is a Chrome browser add-on to audit the browser's security. 
 
-Languages/Tools: JavaScript, with some XML, JSON, HTML, and CSS.
+Languages: JavaScript, JSON, JQuery, HTML, and CSS.
 
 ### Detailed Description
 
 The goal of this project would be to create a Chrome add-on which verifies that the browser's security configuration is acceptable and only allows sign-in to secured areas if the configuration meets requirements. Missions organizations are often exposed far more than other organizations to browser security lapses, since missionaries often use their own personally-owned laptops and devices, and often from outside of a carefully controlled office network. These lapses in security can cause a loss of confidential information as well as expose field missionaries to "association/correlation" issues which can result in additional scrutiny from governments and activist groups.
+
+### Administrating for the Audit Add-on
+
+Administrators asking users to use the add-on with their websites should provide their users with a custom configuration file's URL. We've hosted [an example file](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json), but recommend that administrators edit this to fulfill their needs. See the [testconfig.json documentation](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md) for details on how to write a custom configuration file.
 
 ---
 
@@ -17,7 +21,6 @@ The goal of this project would be to create a Chrome add-on which verifies that 
 Documentation for specific files can be found in the `doc` directory. Below are links to the documentation for each of the files.
 
 **Chrome-Audit-Addon**
-
 -- [css/popup.css](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/css/popup.css.md)  
 -- [files/testconfig.json](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md)  
 -- [libraries/jquery-3.2.0.min.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/libraries/jquery-3.2.0.min.js.md)  
