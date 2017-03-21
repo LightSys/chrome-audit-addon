@@ -25,6 +25,7 @@ Documentation for specific files can be found in the `doc` directory. Below are 
 |-- [manifest.json](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/manifest.json.md)
 |-- [popup.html](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.html.md)
 |-- [popup.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.js.md)
+
 ---
 
 ## Add-on Development
