@@ -14,8 +14,17 @@ The goal of this project would be to create a Chrome add-on which verifies that 
 
 ## Documentation
 
-Documentation for specific files can be found in the `doc` directory.
+Documentation for specific files can be found in the `doc` directory. Below are links to the documentation for each of the files.
 
+
+**Chrome-Audit-Addon**
+|-- [css/popup.css](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/css/popup.css.md)
+|-- [files/testconfig.json](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md)
+|-- [libraries/jquery-3.2.0.min.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/libraries/jquery-3.2.0.min.js.md)
+|-- [eventpage.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/eventpage.js.md)
+|-- [manifest.json](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/manifest.json.md)
+|-- [popup.html](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.html.md)
+|-- [popup.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.js.md)
 ---
 
 ## Add-on Development
@@ -61,3 +70,4 @@ Phase Four: Aspects 0 and 8.
 Phase Five: UI to edit/build the add-on configuration file.
 
 Deliverables would include complete source code to the add-on, documentation, and ensuring LightSys has sufficient copyright rights to the code so that LightSys can continue to use and develop the project.
+
