@@ -14,12 +14,11 @@
   },
 
   "background": {
-    "scripts": ["checkAddons.js"],
+    "scripts": ["libraries/jquery-3.2.0.min.js", "eventPage.js"],
     "persistent": false
   },
 
   "permissions": [
-    "management",
-    "https://*.github.com/"
+    "management"
   ]
 }
