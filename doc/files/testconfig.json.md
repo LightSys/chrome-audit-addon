@@ -1,5 +1,6 @@
 ## About `testconfig.json`
 
 This is a test configuration file.
+It contains a whitelist of acceptable extensions and their ID's.
 
-For now, it simply contains a whitelist of acceptable add-on names. In the future, it may be a good decision to whitelist add-ons by ID, rather than name.
+_(Note: The ID's for individual plugins can be found on the chrome://extensions page if the "developer mode" box is ticked.
