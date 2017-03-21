@@ -13,7 +13,8 @@ The goal of this project would be to create a Chrome add-on which verifies that 
 ---
 
 ## Documentation
-[manifest.json](doc/manifest.json.md)
+
+Documentation for specific files can be found in the `doc` directory.
 
 ---
 
