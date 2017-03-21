@@ -14,6 +14,8 @@ The goal of this project would be to create a Chrome add-on which verifies that 
 
 Administrators asking users to use the add-on with their websites should provide their users with a custom configuration file's URL. We've hosted [an example file](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json), but recommend that administrators edit this to fulfill their needs. See the [testconfig.json documentation](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md) for details on how to write a custom configuration file.
 
+_Note: The url for the configuration file should not exceed 1,000 characters. If it does, the add-on may not function correctly._
+
 ---
 
 ## Documentation
