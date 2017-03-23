@@ -55,3 +55,5 @@ This section of the file specifies scripts that are to be run as event pages. Wh
 ```
 
 This requests the `"management"` permission from Chrome, which allows the add-on access to the `chrome.management` API.
+
+[Return to the README.md file](../README.md)
