@@ -25,7 +25,7 @@ _Note: The url for the configuration file should not exceed 1,000 characters. If
 
 Documentation for specific files can be found in the `doc` directory. Below are links to the documentation for each of the files.
 
-**Chrome-Audit-Addon**
+**Chrome-Audit-Addon**  
 -- [css/popup.css](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/css/popup.css.md)  
 -- [files/testconfig.json](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md)  
 -- [libraries/jquery-3.2.0.min.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/libraries/jquery-3.2.0.min.js.md)  
