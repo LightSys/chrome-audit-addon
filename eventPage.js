@@ -22,8 +22,8 @@ var configUrl = null;
 var passAudit = null;
 
 chrome.runtime.onInstalled.addListener(function() {
-  //configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
-  //checkConfigFile(); // this not only gets the config file, it calls functions that check the installed addons agains the whitelist
+  configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
+  checkConfigFile(); // this not only gets the config file, it calls functions that check the installed addons agains the whitelist
 });
 
 chrome.runtime.onStartup.addListener(function() {
@@ -55,6 +55,8 @@ function checkConfigFile() {
           if(badAddons.length > 0) {
             alert("These addons are not in the whitelist: " + badAddons.join(", ") + ".\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
             passAudit = false;
+          } else {
+            passAudit = true;
           }
         });
       });

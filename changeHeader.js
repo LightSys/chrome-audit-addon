@@ -18,9 +18,11 @@
 chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
   // Get the current URL.
   getCurrentUrl(function(currentUrl) {
-    if(currentUrl !== null) {
+    if(currentUrl !== null && currentUrl !== undefined) {
       // Check if the current page is secure.
-      if(location.protocol == "https:") {
+      var protocol = currentUrl.substring(0, 5); //this was the only way I could get the protocol
+      console.log("Protocol: " + protocol);
+      if(protocol == "https") {
         console.log("secure current url: " + currentUrl);
         //check if audit passed
         if(passAudit) {
