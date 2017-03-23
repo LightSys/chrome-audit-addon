@@ -2,7 +2,6 @@
   "manifest_version": 2,
   "name": "Chrome Audit Addon",
   "version": "1.0",
-
   "description": "Audits browser addons and settings",
 
   "icons": { "16": "icon/icon16x16.png",

@@ -1,14 +1,23 @@
+<img align="right" src="https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/icon/icon128x128.png">
+
+
 # Security Audit Add-on for Chrome
 
 ### Introduction
 
 Many organizations struggle with security risks created by users installing risky add-ons to browsers. This is especially true in bring-your-own-device environments or work-from-home environments. This project is a Chrome browser add-on to audit the browser's security. 
 
-Languages/Tools: JavaScript, with some XML, JSON, HTML, and CSS.
+Languages: JavaScript, JSON, JQuery, HTML, and CSS.
 
 ### Detailed Description
 
 The goal of this project would be to create a Chrome add-on which verifies that the browser's security configuration is acceptable and only allows sign-in to secured areas if the configuration meets requirements. Missions organizations are often exposed far more than other organizations to browser security lapses, since missionaries often use their own personally-owned laptops and devices, and often from outside of a carefully controlled office network. These lapses in security can cause a loss of confidential information as well as expose field missionaries to "association/correlation" issues which can result in additional scrutiny from governments and activist groups.
+
+### Administrating for the Audit Add-on
+
+Administrators asking users to use the add-on with their websites should provide their users with a custom configuration file's URL. We've hosted [an example file](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/doc/files/testconfig.json.md), but recommend that administrators edit this to fulfill their needs. See the [page on writing the configuration file](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/writing_config.md) for details on how to write a custom configuration file.
+
+_Note: The url for the configuration file should not exceed 1,000 characters. If it does, the add-on may not function correctly._
 
 ---
 
@@ -16,15 +25,15 @@ The goal of this project would be to create a Chrome add-on which verifies that 
 
 Documentation for specific files can be found in the `doc` directory. Below are links to the documentation for each of the files.
 
+**Chrome-Audit-Addon**  
+-- [css/popup.css](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/css/popup.css.md)  
+-- [files/testconfig.json](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md)  
+-- [libraries/jquery-3.2.0.min.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/libraries/jquery-3.2.0.min.js.md)  
+-- [eventpage.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/eventpage.js.md)  
+-- [manifest.json](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/manifest.json.md)  
+-- [popup.html](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.html.md)  
+-- [popup.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.js.md)  
 
-**Chrome-Audit-Addon**
-|-- [css/popup.css](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/css/popup.css.md)
-|-- [files/testconfig.json](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md)
-|-- [libraries/jquery-3.2.0.min.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/libraries/jquery-3.2.0.min.js.md)
-|-- [eventpage.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/eventpage.js.md)
-|-- [manifest.json](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/manifest.json.md)
-|-- [popup.html](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.html.md)
-|-- [popup.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.js.md)
 ---
 
 ## Add-on Development
@@ -49,7 +58,7 @@ configuration changes, the user is (configurably) blocked or warned that the cha
 prevent access to some important websites.
 8. When the user goes to a secured URL that is specifically marked for update-checking, the add-on will automatically check for a configuration update at a specific pathname, and import the update if it exists.
 
-## Notes On Development and Phasing
+### Notes On Development and Phasing
 
 Generating the configuration hash is tricky. This must only include options for this add-on, not other options for the browser and not options that are being monitored by this add-on. The salted hashes should not be included, but everything else should, in a way that results in a consistent result regardless of the *order* of the configuration options. This will likely require sorting in advance of hashing.
 

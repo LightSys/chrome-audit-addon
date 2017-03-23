@@ -9,3 +9,5 @@ The `popup.html` file controls what is displayed when the icon is clicked. It is
 ```
 
 These lines cause the `libraries/jquery-3.2.0.min.js` and `popup.js` scripts to be run when the html is displayed. 
+
+[Return to the README.md file](../README.md)
