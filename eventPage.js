@@ -37,7 +37,7 @@ function checkConfigFile() {
         // compare the extensions, and get a list of bad addons back
         compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
           //if there are bad addons, say so
-          if(badAddons.length > 1) {
+          if(badAddons.length > 0) {
             alert("These addons are not in the whitelist: " + badAddons);
           }
         });
