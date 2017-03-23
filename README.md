@@ -1,4 +1,4 @@
-# Security Audit Add-on for Chrome
+![Icon](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/icon/icon128x128.png)# Security Audit Add-on for Chrome
 
 ### Introduction
 
@@ -55,7 +55,7 @@ configuration changes, the user is (configurably) blocked or warned that the cha
 prevent access to some important websites.
 8. When the user goes to a secured URL that is specifically marked for update-checking, the add-on will automatically check for a configuration update at a specific pathname, and import the update if it exists.
 
-## Notes On Development and Phasing
+### Notes On Development and Phasing
 
 Generating the configuration hash is tricky. This must only include options for this add-on, not other options for the browser and not options that are being monitored by this add-on. The salted hashes should not be included, but everything else should, in a way that results in a consistent result regardless of the *order* of the configuration options. This will likely require sorting in advance of hashing.
 
