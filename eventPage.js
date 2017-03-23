@@ -15,21 +15,21 @@
 *
 * 3. Determining how long it has been since the browser was updated: we are able to read current version, but not the latest.
 *
-* 4. Making a decision based on the above of whether the browser passes or fails the security audit: in progress.
-*
 */
 
 //Global variable for the config URL
 var configUrl = null;
+var passAudit = null;
 
 chrome.runtime.onInstalled.addListener(function() {
-  configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
-  checkConfigFile(); // this not only gets the config file, it calls functions that check the installed addons agains the whitelist
+  //configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
+  //checkConfigFile(); // this not only gets the config file, it calls functions that check the installed addons agains the whitelist
 });
 
 chrome.runtime.onStartup.addListener(function() {
   checkConfigFile();
 });
+
 
 // get the config file
 function checkConfigFile() {
@@ -52,8 +52,9 @@ function checkConfigFile() {
         // compare the extensions, and get a list of bad addons back
         compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
           //if there are bad addons, say so
-          if(badAddons.length > 1) {
+          if(badAddons.length > 0) {
             alert("These addons are not in the whitelist: " + badAddons.join(", ") + ".\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
+            passAudit = false;
           }
         });
       });
