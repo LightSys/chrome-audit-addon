@@ -1,5 +1,6 @@
 <img align="right" src="https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/icon/icon128x128.png">
 
+
 # Security Audit Add-on for Chrome
 
 ### Introduction
