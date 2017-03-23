@@ -2,6 +2,21 @@
 * checkAddons.js is an Event Page that runs in the background.
 * All the calls are asynchronous.
 *
+*
+* Requirements:
+*
+* 0. On installation, asking the user for a URL to load a configuration file from: done.
+*
+* 1. Scanning the browser's configuration to determine if any risky configuration options are set: this cannot be done
+* in an addon, because Chrome does not allow it. This needs to be done with GPO or by another program which sets flags from the
+* command line before launching Chrome. Or, the master_preferences file can be set BEFORE Chrome launches for the FIRST TIME.
+*
+* 2. Scanning the browser's extensions/add-ons list, and comparing that with a configurable whitelist: done.
+*
+* 3. Determining how long it has been since the browser was updated: we are able to read current version, but not the latest.
+*
+* 4. Making a decision based on the above of whether the browser passes or fails the security audit: in progress.
+*
 */
 
 //Global variable for the config URL
@@ -38,7 +53,7 @@ function checkConfigFile() {
         compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
           //if there are bad addons, say so
           if(badAddons.length > 1) {
-            alert("These addons are not in the whitelist: " + badAddons);
+            alert("These addons are not in the whitelist: " + badAddons.join(", ") + ".\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
           }
         });
       });
@@ -63,7 +78,8 @@ function getInstalledExtensions(done) {
   chrome.management.getAll(function(items){
     var installedExtensions = new Array();
     items.forEach(function(item){
-      item.type == "extension" ? installedExtensions.push(item) : null;
+      // If the item is an extension and it is enabled, add it to the list, else do nothing.
+      item.type == "extension" && item.enabled == true ? installedExtensions.push(item) : null;
     });
     //send the installed extensions to the caller
     done(installedExtensions);
