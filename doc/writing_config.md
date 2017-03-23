@@ -27,3 +27,4 @@ These unique ID's are hidden by default, but can be displayed if the "Developer 
 3. In your custom configuration file, add a line to the whitelist, containing the name and ID of the extension you wish to whitelist.  
 ![Add a line to your configuration file's whitelist](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/doc/writing_config_img/whitelist_img02.png)
 
+[Return to the README.md file](../README.md)

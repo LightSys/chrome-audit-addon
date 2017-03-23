@@ -15,3 +15,5 @@ _Alerting the user of non-approved extensions_
 ![Alerting the user of non-approved extensions](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/doc/eventpage.js_img/eventpage.js_img01.png)
 
 [View the source code for this file](../eventPage.js). 
+
+[Return to the README.md file](../README.md)
