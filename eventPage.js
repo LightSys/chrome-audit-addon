@@ -28,7 +28,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
 // Run this on Chrome startup
 chrome.runtime.onStartup.addListener(function() {
-  getAndCheckConfig(suppressAlert = false);
+  getAndCheckConfig(suppressAlert = true);
 });
 
 // Run a check when an extensino is enabled
@@ -136,7 +136,6 @@ function set_options(configUrl){
 }
 
 function getAndCheckConfig(suppressAlert = false) {
-	console.log("Getting and checking config. Suppress = ", supressAlert);
     get_options(function(configUrl) {
     if(configUrl == null){
       configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
