@@ -14,6 +14,9 @@
 *
 */
 
+var SHA256 = CryptoJS.SHA256("Message");
+console.log("Message: " + SHA256);
+
 // Before sending the headers, check audit, append appropriate x-audit header.
 chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
   // Get the current URL.
