@@ -1,6 +1,6 @@
 /**
  * @file
- * 
+ *
  */
 
 var bg = chrome.extension.getBackgroundPage();
@@ -8,7 +8,7 @@ var bg = chrome.extension.getBackgroundPage();
 var passes = bg.passAudit;
 
 if (passes != null) {
-	if (passes) { 
+	if (passes) {
 		$("#passFailLabel").text("Audit Passed");
 		$("#popupIcon").prepend("<img align='center' src='icon/icon128x128.png'>");
 	} else {
@@ -21,8 +21,7 @@ if (passes != null) {
 }
 
 function run_audit(){
-	bg.supressAlert = false;
-	bg.getAndCheckConfig();
+	bg.getAndCheckConfig(suppressAlert=false);
 }
 
 
