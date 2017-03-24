@@ -140,6 +140,7 @@ function set_options(configUrl){
 }
 
 function getAndCheckConfig() {
+	console.log("Getting and checking config. Suppress = ", supressAlert);
   get_options(function(configUrl) {
     if(configUrl == null){
       configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);

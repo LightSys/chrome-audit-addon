@@ -1,19 +1,23 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Addon Auditor</title>
-    <link href="css/popup.css" rel="stylesheet" type="text/css"></link>
-    <!-- Maybe this should change to a url at some point, but that will also need to be allowed in the manifest -->
-    <script src="libraries/jquery-3.2.0.min.js" type="text/javascript"></script>
-
-  </head>
-  <body>
+	<head>
+		<title>Addon Auditor</title>
+		<link href="css/popup.css" rel="stylesheet" type="text/css"></link>
+		<!-- Maybe this should change to a url at some point, but that will also need to be allowed in the manifest -->
+		<script src="libraries/jquery-3.2.0.min.js" type="text/javascript"></script>
+	</head>
+	<body>
 	<div><b>Add-on Auditor</b></div>
-  	<div id="popupIcon"></div>
-    <div id="passFailLabel">Default</div>
+	<div id="popupIcon"></div>
+	<div id="passFailLabel">Default</div>
+ 	<div id="runButtonDiv">
+ 		<button type="button" id="runButton" style="margin: 0 auto; font-size: 16px;">Run Audit</button>
+ 	</div>
 	<div>
-		<a href="options.html">Options</a>
+		<form action="options.html">
+			<input style="margin: 0 auto; font-size: 16px;" type="submit" value="Options" />
+		</form>
 	</div>
-  </body>
-  <script src="popup.js"></script>
+	</body>
+	<script src="popup.js"></script>
 </html>
