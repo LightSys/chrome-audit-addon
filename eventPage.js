@@ -20,51 +20,30 @@
 //Global variable for the audit passing status
 var defaultUrl = "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json"
 var passAudit = null;
+var supressAlert = false;
 
 // Run this on installation
 chrome.runtime.onInstalled.addListener(function() {
-  get_options(function(configUrl) {
-    if(configUrl == null){
-      configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
-      set_options(configUrl);
-    }
-    // this not only gets the config file from the configUrl, it calls functions that check the
-    //installed addons agains the whitelist
-    checkConfigFile(configUrl);
-  });
+  supressAlert = false;
+  getAndCheckConfig();
 });
 
 // Run this on Chrome startup
 chrome.runtime.onStartup.addListener(function() {
-  get_options(function(configUrl) {
-    if(configUrl == null){
-      configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
-      set_options(configUrl);
-    }
-    checkConfigFile(configUrl);
-  });
+  supressAlert = false;
+  getAndCheckConfig();
 });
 
 // Run a check when an extensino is enabled
 chrome.management.onEnabled.addListener(function() {
-  get_options(function(configUrl) {
-    if(configUrl == null){
-      configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
-      set_options(configUrl);
-    }
-    checkConfigFile(configUrl);
-  });
+  supressAlert = true;
+  getAndCheckConfig();
 });
 
 // Run a check when an extension is disabled
 chrome.management.onDisabled.addListener(function() {
-  get_options(function(configUrl) {
-    if(configUrl == null){
-      configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
-      set_options(configUrl);
-    }
-    checkConfigFile(configUrl);
-  });
+  supressAlert = true;
+  getAndCheckConfig();
 });
 
 
@@ -98,9 +77,11 @@ function checkConfigFile(configUrl) {
           chrome.browserAction.setIcon({
             path: "icon/fail-icon48x48.png"
           });
-          alert("These addons are not in the whitelist: \n"
-            + badAddons.join("\n")
-            + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
+          if(!supressAlert){
+            alert("These addons are not in the whitelist: \n"
+              + badAddons.join("\n")
+              + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
+          }
           passAudit = false;
         } else {
           chrome.browserAction.setIcon({
@@ -156,6 +137,16 @@ function getInstalledExtensions(done) {
 function set_options(configUrl){
   chrome.storage.sync.set({"ConfigUrl": configUrl}, function(){
     console.log("Wrote url successfully (url: " + configUrl + ")");
+  });
+}
+
+function getAndCheckConfig() {
+    get_options(function(configUrl) {
+    if(configUrl == null){
+      configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
+      set_options(configUrl);
+    }
+    checkConfigFile(configUrl);
   });
 }
 
