@@ -17,7 +17,10 @@
 
 // var SHA256 = CryptoJS.SHA256("Message");
 // console.log("Message: " + SHA256);
+
 var parsedJson = null;
+
+// get the json file and store it in the parsedJson global
 getConfigUrl(function(configUrl){
   console.log("Result: " + configUrl);
   $.get(configUrl, function(json) {
@@ -28,35 +31,34 @@ getConfigUrl(function(configUrl){
 // Before sending the headers, check audit, append appropriate x-audit header.
 chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
 
+  // if there is a json file
   if(parsedJson !== null) {
-    console.log(parsedJson.urlList[0]);
-
     // Get the current URL.
     getCurrentUrl(function(currentUrl) {
       if(currentUrl !== null) {
-        console.log(currentUrl);
-        // compare it to the list
+        var isOnList = false; // initialize and declare bool to check if the url is on the list or not
+        // compare it to each item in the list
         for(obj in parsedJson.urlList) {
-            if(parsedJson.urlList[obj] == currentUrl) {
-              console.log("URL is on list!");
-            } else {
-              console.log("URL is not on list!")
+          // if there is a match, set the bool to true
+            if(parsedJson.urlList[obj].url == currentUrl) {
+              isOnList = true;
             }
         }
 
-
-        //check if audit passed
-        if(passAudit) {
-          console.log("Audit passed");
-        } else {
-          console.log("audit didn't pass");
+        // if the url was on the list
+        if(isOnList){
+          // run audits again to see if things have changed
+          getAndCheckConfig(supressAlert = true);
+          //check if audit passed
+          if(passAudit) {
+            console.log("Audit passed");
+          } else {
+            console.log("audit didn't pass");
+          }
         }
-
       }
     });
   }
-
-
 },
 //Do this for all URLs, and make it blocking (not asynchronous)
 {urls: ["<all_urls>"]},
