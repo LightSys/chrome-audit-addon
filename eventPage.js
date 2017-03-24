@@ -31,7 +31,7 @@ chrome.runtime.onInstalled.addListener(function() {
     // this not only gets the config file from the configUrl, it calls functions that check the
     //installed addons agains the whitelist
     checkConfigFile(configUrl);
-    });
+  });
 });
 
 // Run this on Chrome startup
@@ -44,6 +44,29 @@ chrome.runtime.onStartup.addListener(function() {
     checkConfigFile(configUrl);
   });
 });
+
+// Run a check when an extensino is enabled
+chrome.management.onEnabled.addListener(function() {
+  get_options(function(configUrl) {
+    if(configUrl == null){
+      configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
+      set_options(configUrl);
+    }
+    checkConfigFile(configUrl);
+  });
+});
+
+// Run a check when an extension is disabled
+chrome.management.onDisabled.addListener(function() {
+  get_options(function(configUrl) {
+    if(configUrl == null){
+      configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
+      set_options(configUrl);
+    }
+    checkConfigFile(configUrl);
+  });
+});
+
 
 
 /**
