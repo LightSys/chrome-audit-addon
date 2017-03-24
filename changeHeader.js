@@ -47,6 +47,8 @@ chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
 
         // if the url was on the list
         if(isOnList){
+          // run audits again to see if things have changed
+          getAndCheckConfig(supressAlert = true);
           //check if audit passed
           if(passAudit) {
             console.log("Audit passed");

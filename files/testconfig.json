@@ -12,6 +12,7 @@
     {"url": "https://www.google.com/"},
     {"url": "https://www.microsoft.com/"},
     {"url": "https://www.microsoft.com/en-us/"},
-    {"url": "https://www.apple.com/"}
+    {"url": "https://www.apple.com/"},
+    {"url": "10.5.128.71"}
   ]
 }
