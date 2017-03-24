@@ -18,13 +18,14 @@
 
 //Global variable for the config URL
 //Global variable for the audit passing status
+var defaultUrl = "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json"
 var passAudit = null;
 
 // Run this on installation
 chrome.runtime.onInstalled.addListener(function() {
   get_options(function(configUrl) {
     if(configUrl == null){
-      configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
+      configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
       set_options(configUrl);
     }
     // this not only gets the config file from the configUrl, it calls functions that check the
@@ -37,7 +38,7 @@ chrome.runtime.onInstalled.addListener(function() {
 chrome.runtime.onStartup.addListener(function() {
   get_options(function(configUrl) {
     if(configUrl == null){
-      configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
+      configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
       set_options(configUrl);
     }
     checkConfigFile(configUrl);
@@ -71,11 +72,17 @@ function checkConfigFile(configUrl) {
       compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
         //if there are bad addons, say so
         if(badAddons.length > 0) {
+          chrome.browserAction.setIcon({
+            path: "icon/fail-icon48x48.png"
+          });
           alert("These addons are not in the whitelist: \n"
             + badAddons.join("\n")
-            + ".\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
+            + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
           passAudit = false;
         } else {
+          chrome.browserAction.setIcon({
+            path: "icon/icon48x48.png"
+          });
           passAudit = true;
         }
       });
@@ -85,8 +92,8 @@ function checkConfigFile(configUrl) {
 
 /**
  * Compares two lists of extensions: a whitelist, and those currently
- * installed and enabled. Returns those that are installed and enabled 
- * but not whitelisted. 
+ * installed and enabled. Returns those that are installed and enabled
+ * but not whitelisted.
  * @Param {Array} whitelistIds, the ID's of the extensions that are whitelisted
  * @Param {Array} installedExtensions, the extensions installed and enabled.
  * @Return {Array} done, when finished, returns a list of extensions installed and enabled but not whitelisted.
@@ -121,7 +128,7 @@ function getInstalledExtensions(done) {
 
 /**
  * Stores the add-on options to Chrome's persistent storage.
- * @Param theConfigUrl, the web address of the configuration file. 
+ * @Param theConfigUrl, the web address of the configuration file.
  */
 function set_options(configUrl){
   chrome.storage.sync.set({"ConfigUrl": configUrl}, function(){
