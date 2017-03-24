@@ -34,5 +34,5 @@ function close_window(){
 }
 
 // add listeners to rerun button
-document.getElementById('rerun').addEventListener('click', run_audit);
-document.getElementById('rerun').addEventListener('click', close_window);
+document.getElementById('runButton').addEventListener('click', run_audit);
+document.getElementById('runButton').addEventListener('click', close_window);
