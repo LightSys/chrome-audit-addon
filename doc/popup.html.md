@@ -1,6 +1,6 @@
 ## About `popup.html`
 
-The `popup.html` file controls what is displayed when the icon is clicked. It is a simple html file with some css imported from the `css/popup.css` file. 
+The `popup.html` file controls what is displayed when the icon is clicked. It is a simple html file with some css imported from the `css/popup.css` file. There is also a link to display the options page in the popup dialog.
 
 
 ```html

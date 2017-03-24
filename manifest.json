@@ -29,6 +29,6 @@
     "webRequest",
     "storage",
     "webRequestBlocking",
-    "<all_urls>"
+    "https://*/*"
   ]
 }

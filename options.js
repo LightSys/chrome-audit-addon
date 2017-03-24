@@ -1,26 +1,35 @@
-var configUrl = "";
+var configUrl = null;
 
-// set_options stores a configuration url using chrome's storage API
-// theConfigUrl: the url to be stored
+/**
+ * Stores the add-on options to Chrome's persistent storage.
+ * @Param theConfigUrl, the web address of the configuration file. 
+ */
 function set_options(theConfigUrl){
   chrome.storage.sync.set({"ConfigUrl": theConfigUrl}, function(){
     console.log("Wrote url successfully (url: " + theConfigUrl + ")");
   });
 }
 
-// get_options accesses chrome's storage API
-// done: function to access items.ConfigUrl
+/**
+ * Gets the add-on options from Chrome's persistent storage.
+ * @Return done, the configuration file URL
+ */
 function get_options(done){
   chrome.storage.sync.get("ConfigUrl", function(items) {
     done(items.ConfigUrl);
   });
 }
 
+/*
+ * Close the window
+ */
 function close_window(){
   window.close();
 }
 
-// helper functions for event listeners
+/*
+ * Sets the options text box to the contain the current configuration URL
+ */
 function get() {
   get_options(function(theConfigUrl) {
     configUrl = theConfigUrl;
@@ -28,6 +37,9 @@ function get() {
   });
 }
 
+/*
+ * Take the URL from the text box and set the configuration URL to that
+ */
 function set() {
   set_options(document.getElementById('urlText').value);
 }
@@ -37,7 +49,6 @@ document.addEventListener('DOMContentLoaded',
     get);
 
 // add listeners to save button
-
 document.getElementById('save').addEventListener('click',
     set);
 document.getElementById('save').addEventListener('click',
