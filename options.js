@@ -1,4 +1,4 @@
-var configUrl = "";
+var configUrl = null;
 
 // set_options stores a configuration url using chrome's storage API
 // theConfigUrl: the url to be stored
@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded',
     get);
 
 // add listeners to save button
-
 document.getElementById('save').addEventListener('click',
     set);
 document.getElementById('save').addEventListener('click',
