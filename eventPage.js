@@ -18,59 +18,65 @@
 */
 
 //Global variable for the config URL
-var configUrl = null;
 var passAudit = null;
 
 chrome.runtime.onInstalled.addListener(function() {
-  get_options(function(theConfigUrl) {
-    configUrl = theConfigUrl;
+  get_options(function(configUrl) {
     if(configUrl == null){
       configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
       set_options(configUrl);
     }
-    checkConfigFile(); // this not only gets the config file, it calls functions that check the installed addons agains the whitelist
-  });
+    // this not only gets the config file from the configUrl, it calls functions that check the
+    //installed addons agains the whitelist
+    checkConfigFile(configUrl);
+    });
 });
 
 chrome.runtime.onStartup.addListener(function() {
-  get_options(function(theConfigUrl) {
-    configUrl = theConfigUrl;
-    checkConfigFile();
+  get_options(function(configUrl) {
+    if(configUrl == null){
+      configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
+      set_options(configUrl);
+    }
+    checkConfigFile(configUrl);
   });
 });
 
 
 // get the config file
-function checkConfigFile() {
-  if(configUrl != null) {
-    // Get the json file from the configUrl and parse it.
-    $.get(configUrl, function(json) {
-      var parsedJson = JSON.parse(json);
+function checkConfigFile(configUrl) {
+  if(configUrl == null) {
+    return;
+  }
+  // Get the json file from the configUrl and parse it.
+  $.get(configUrl, function(json) {
+    var parsedJson = JSON.parse(json);
 
-      // this gets all the installed extensions. They are sent as a callback.
-      getInstalledExtensions(function(installedExtensions) {
+    // this gets all the installed extensions. They are sent as a callback.
+    getInstalledExtensions(function(installedExtensions) {
 
-        //create array to store IDs in
-        var whitelistIds = new Array();
+      //create array to store IDs in
+      var whitelistIds = new Array();
 
-        // get each json object, store its ID in the array.
-        for (var obj in parsedJson.whitelist) {
-          whitelistIds.push(parsedJson.whitelist[obj].id);
+      // get each json object, store its ID in the array.
+      for (var obj in parsedJson.whitelist) {
+        whitelistIds.push(parsedJson.whitelist[obj].id);
+      }
+
+      // compare the extensions, and get a list of bad addons back
+      compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
+        //if there are bad addons, say so
+        if(badAddons.length > 0) {
+          alert("These addons are not in the whitelist: \n"
+            + badAddons.join("\n")
+            + ".\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
+          passAudit = false;
+        } else {
+          passAudit = true;
         }
-
-        // compare the extensions, and get a list of bad addons back
-        compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
-          //if there are bad addons, say so
-          if(badAddons.length > 0) {
-            alert("These addons are not in the whitelist: " + badAddons.join(", ") + ".\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
-            passAudit = false;
-          } else {
-            passAudit = true;
-          }
-        });
       });
     });
-  }
+  });
 }
 
 function compareExtensions(whitelistIds, installedExtensions, done) {
@@ -100,9 +106,9 @@ function getInstalledExtensions(done) {
 
 // set_options stores a configuration url using chrome's storage API
 // theConfigUrl: the url to be stored
-function set_options(theConfigUrl){
-  chrome.storage.sync.set({"ConfigUrl": theConfigUrl}, function(){
-    console.log("Wrote url successfully (url: " + theConfigUrl + ")");
+function set_options(configUrl){
+  chrome.storage.sync.set({"ConfigUrl": configUrl}, function(){
+    console.log("Wrote url successfully (url: " + configUrl + ")");
   });
 }
 
