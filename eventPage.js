@@ -8,12 +8,21 @@
 var configUrl = null;
 
 chrome.runtime.onInstalled.addListener(function() {
-  configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
-  checkConfigFile(); // this not only gets the config file, it calls functions that check the installed addons agains the whitelist
+  get_options(function(theConfigUrl) {
+    configUrl = theConfigUrl;
+    if(configUrl == null){
+      configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
+      set_options(configUrl);
+    }
+    checkConfigFile(); // this not only gets the config file, it calls functions that check the installed addons agains the whitelist
+  });
 });
 
 chrome.runtime.onStartup.addListener(function() {
-  checkConfigFile();
+  get_options(function(theConfigUrl) {
+    configUrl = theConfigUrl;
+    checkConfigFile();
+  });
 });
 
 // get the config file
@@ -67,5 +76,21 @@ function getInstalledExtensions(done) {
     });
     //send the installed extensions to the caller
     done(installedExtensions);
+  });
+}
+
+// set_options stores a configuration url using chrome's storage API
+// theConfigUrl: the url to be stored
+function set_options(theConfigUrl){
+  chrome.storage.sync.set({"ConfigUrl": theConfigUrl}, function(){
+    console.log("Wrote url successfully (url: " + theConfigUrl + ")");
+  });
+}
+
+// get_options accesses chrome's storage API
+// done: function to access items.ConfigUrl
+function get_options(done){
+  chrome.storage.sync.get("ConfigUrl", function(items) {
+    done(items.ConfigUrl);
   });
 }
