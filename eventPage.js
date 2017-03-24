@@ -66,30 +66,42 @@ function checkConfigFile(configUrl, suppressAlert) {
       }
 
       // compare the extensions, and get a list of bad addons back
-      compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
-        //if there are bad addons, say so
+      compareExtensions(whitelistIds, installedExtensions,
+        function(badAddons) {
         if(badAddons.length > 0) {
-          chrome.browserAction.setIcon({
-            path: "icon/fail-icon48x48.png"
-          });
-          if(!suppressAlert){
-            alert("These addons are not in the whitelist: \n"
-              + badAddons.join("\n")
-              + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
-          }
-          passAudit = false;
+          auditFailed(badAddons, suppressAlert);
         } else {
-          chrome.browserAction.setIcon({
-            path: "icon/icon48x48.png"
-          });
-          if(!suppressAlert){
-            alert("Audit Completed Successfully!");
-          }
-          passAudit = true;
+          auditPassed(suppressAlert);
         }
       });
     });
   });
+}
+
+function auditPassed(suppressAlert){
+  chrome.browserAction.setIcon({
+    path: "icon/icon48x48.png"
+  });
+  if(!suppressAlert){
+    alert("Audit Completed Successfully!");
+  }
+  passAudit = true;
+  set_badAddons(badAddons=null);
+}
+
+function auditFailed(badAddons, suppressAlert){
+  // set icon to fail
+  chrome.browserAction.setIcon({
+    path: "icon/fail-icon48x48.png"
+  });
+  if(!suppressAlert){
+    alert("These addons are not in the whitelist: \n"
+      + badAddons.join("\n")
+      + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
+  }
+  //set the global and config variable
+  passAudit = false;
+  set_badAddons(badAddons);
 }
 
 /**
@@ -108,7 +120,7 @@ function compareExtensions(whitelistIds, installedExtensions, done) {
       badAddons.push(extension.name);
     }
   });
-  done(badAddons)
+  done(badAddons);
 }
 
 /**
@@ -138,6 +150,18 @@ function set_options(configUrl){
   });
 }
 
+function set_badAddons(badAddons){
+  chrome.storage.sync.set({"BadAddons": badAddons}, function(){
+    console.log("Wrote BadAddons successfully");
+  });
+}
+
+function set_passAudit(passAudit){
+  chrome.storage.sync.set({"PassAudit": passAudit}, function(){
+    console.log("Wrote PassAudit successfully");
+  });
+}
+
 function getAndCheckConfig(suppressAlert = false) {
     get_options(function(configUrl) {
     if(configUrl == null){
@@ -155,5 +179,17 @@ function getAndCheckConfig(suppressAlert = false) {
 function get_options(done){
   chrome.storage.sync.get("ConfigUrl", function(items) {
     done(items.ConfigUrl);
+  });
+}
+
+function get_badAddons(done){
+  chrome.storage.sync.get("badAddons", function(items){
+    done(items.BadAddons);
+  });
+}
+
+function get_passAudit(done){
+  chrome.storage.sync.get("passAudit", function(items){
+    done(items.PassAudit);
   });
 }
