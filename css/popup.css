@@ -3,14 +3,19 @@ body {
   margin: 0px;
   padding: 10px;
   background: white;
+  font-family: sans-serif;
+  width: 175px;
 }
 
 div {
   text-align: center;
   padding: 2px 6px;
-  font-family: sans-serif;
   font-size: 1.6em;
-  width: 300px;
   margin-top: 1px;
-  background: white;
+}
+
+a, button {
+  margin: 0 auto;
+  font-size: 10px;
+  padding: 2px 6px;
 }
