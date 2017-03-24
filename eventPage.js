@@ -2,19 +2,43 @@
 * checkAddons.js is an Event Page that runs in the background.
 * All the calls are asynchronous.
 *
+*
+* Requirements:
+*
+* 0. On installation, asking the user for a URL to load a configuration file from: done.
+*
+* 1. Scanning the browser's configuration to determine if any risky configuration options are set: this cannot be done
+* in an addon, because Chrome does not allow it. This needs to be done with GPO or by another program which sets flags from the
+* command line before launching Chrome. Or, the master_preferences file can be set BEFORE Chrome launches for the FIRST TIME.
+*
+* 2. Scanning the browser's extensions/add-ons list, and comparing that with a configurable whitelist: done.
+*
+* 3. Determining how long it has been since the browser was updated: we are able to read current version, but not the latest.
+*
 */
 
 //Global variable for the config URL
 var configUrl = null;
+var passAudit = null;
 
 chrome.runtime.onInstalled.addListener(function() {
-  configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
-  checkConfigFile(); // this not only gets the config file, it calls functions that check the installed addons agains the whitelist
+  get_options(function(theConfigUrl) {
+    configUrl = theConfigUrl;
+    if(configUrl == null){
+      configUrl = prompt("Please enter the URL of the config file: ", "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json");
+      set_options(configUrl);
+    }
+    checkConfigFile(); // this not only gets the config file, it calls functions that check the installed addons agains the whitelist
+  });
 });
 
 chrome.runtime.onStartup.addListener(function() {
-  checkConfigFile();
+  get_options(function(theConfigUrl) {
+    configUrl = theConfigUrl;
+    checkConfigFile();
+  });
 });
+
 
 // get the config file
 function checkConfigFile() {
@@ -38,7 +62,10 @@ function checkConfigFile() {
         compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
           //if there are bad addons, say so
           if(badAddons.length > 0) {
-            alert("These addons are not in the whitelist: " + badAddons);
+            alert("These addons are not in the whitelist: " + badAddons.join(", ") + ".\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
+            passAudit = false;
+          } else {
+            passAudit = true;
           }
         });
       });
@@ -63,9 +90,26 @@ function getInstalledExtensions(done) {
   chrome.management.getAll(function(items){
     var installedExtensions = new Array();
     items.forEach(function(item){
-      item.type == "extension" ? installedExtensions.push(item) : null;
+      // If the item is an extension and it is enabled, add it to the list, else do nothing.
+      item.type == "extension" && item.enabled == true ? installedExtensions.push(item) : null;
     });
     //send the installed extensions to the caller
     done(installedExtensions);
+  });
+}
+
+// set_options stores a configuration url using chrome's storage API
+// theConfigUrl: the url to be stored
+function set_options(theConfigUrl){
+  chrome.storage.sync.set({"ConfigUrl": theConfigUrl}, function(){
+    console.log("Wrote url successfully (url: " + theConfigUrl + ")");
+  });
+}
+
+// get_options accesses chrome's storage API
+// done: function to access items.ConfigUrl
+function get_options(done){
+  chrome.storage.sync.get("ConfigUrl", function(items) {
+    done(items.ConfigUrl);
   });
 }
