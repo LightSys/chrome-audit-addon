@@ -20,30 +20,25 @@
 //Global variable for the audit passing status
 var defaultUrl = "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json"
 var passAudit = null;
-var supressAlert = false;
 
 // Run this on installation
 chrome.runtime.onInstalled.addListener(function() {
-  supressAlert = false;
-  getAndCheckConfig();
+  getAndCheckConfig(suppressAlert = false);
 });
 
 // Run this on Chrome startup
 chrome.runtime.onStartup.addListener(function() {
-  supressAlert = false;
-  getAndCheckConfig();
+  getAndCheckConfig(suppressAlert = false);
 });
 
 // Run a check when an extensino is enabled
 chrome.management.onEnabled.addListener(function() {
-  supressAlert = true;
-  getAndCheckConfig();
+  getAndCheckConfig(suppressAlert = true);
 });
 
 // Run a check when an extension is disabled
 chrome.management.onDisabled.addListener(function() {
-  supressAlert = true;
-  getAndCheckConfig();
+  getAndCheckConfig(suppressAlert = true);
 });
 
 
@@ -51,7 +46,7 @@ chrome.management.onDisabled.addListener(function() {
 /**
  * Downloads the latest config file, and runs the audit on the browser.
  */
-function checkConfigFile(configUrl) {
+function checkConfigFile(configUrl, suppressAlert) {
   if(configUrl == null) {
     return;
   }
@@ -77,7 +72,7 @@ function checkConfigFile(configUrl) {
           chrome.browserAction.setIcon({
             path: "icon/fail-icon48x48.png"
           });
-          if(!supressAlert){
+          if(!suppressAlert){
             alert("These addons are not in the whitelist: \n"
               + badAddons.join("\n")
               + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
@@ -140,13 +135,13 @@ function set_options(configUrl){
   });
 }
 
-function getAndCheckConfig() {
+function getAndCheckConfig(suppressAlert = false) {
     get_options(function(configUrl) {
     if(configUrl == null){
       configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
       set_options(configUrl);
     }
-    checkConfigFile(configUrl);
+    checkConfigFile(configUrl, suppressAlert);
   });
 }
 
