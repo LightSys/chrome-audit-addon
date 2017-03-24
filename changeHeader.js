@@ -9,8 +9,8 @@
 *  If a hash matches, and the browser is "failing" the audit, the request is blocked with an error page that lists the reasons for the failure.
 *
 * 3. When the browser goes to a secured URL, an extra HTTP header, "X-Audit: passed f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2"
-*  (with a sha-256 hash* of the audit add-on's configuration) is included, so the site being accessed can assess whether or not to continue
-*  allowing the connection and sign-in.
+*  (with a sha-256 hash* of the audit add-on's configuration) is included, so the site being accessed can assess whether or not to
+* continue allowing the connection and sign-in.
 *
 */
 
@@ -26,7 +26,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
         console.log("secure current url: " + currentUrl);
         //check if audit passed
         if(passAudit) {
-          console.log("Audit passed")
+          console.log("Audit passed");
         } else {
           console.log("audit didn't pass");
         }

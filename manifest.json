@@ -27,7 +27,7 @@
   "permissions": [
     "management",
     "webRequest",
-    "storage"
+    "storage",
     "webRequestBlocking",
     "<all_urls>"
   ]
