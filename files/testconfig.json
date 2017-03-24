@@ -1,6 +1,7 @@
 {
   "whitelist": [
     {"name": "Chrome Audit Addon", "id": "bajpgljgpgcaihgkmgebfpngcnompgdp"},
+    {"name": "Chrome Audit Addon", "id": "modnhkdmjpcgofbjgfackbblobbebenm"},
     {"name": "UBlock Origin", "id": "cjpalhdlnbpafiamejdnhcphjbkeiagm"},
     {"name": "Web Developer", "id": "bfbameneiokkgbdmiekhjnmfkcnldhhm"},
     {"name": "Plus for Trello", "id": "gjjpophepkbhejnglcmkdnncmaanojkf"},
