@@ -21,12 +21,14 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
   "background": {
-    "scripts": ["libraries/jquery-3.2.0.min.js", "eventPage.js"],
-    "persistent": false
+    "scripts": ["libraries/jquery-3.2.0.min.js", "eventPage.js", "changeHeader.js"]
   },
 
   "permissions": [
     "management",
+    "webRequest",
     "storage"
+    "webRequestBlocking",
+    "<all_urls>"
   ]
 }
