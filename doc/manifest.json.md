@@ -49,7 +49,7 @@ This sets the security policy to allow `eval()` and its relatives, like `setTime
 
 ```json
   "background": {
-    "scripts": ["libraries/jquery-3.2.0.min.js", "eventPage.js", "changeHeader.js"]
+    "scripts": ["libraries/jquery-3.2.0.min.js", "backgroundPage.js", "changeHeader.js"]
   },
 ```
 

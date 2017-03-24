@@ -1,4 +1,4 @@
-## About `eventpage.js`
+## About `backgroundPage.js`
 
 This file is a background page, which runs code asynchronously in the background at installation and during startup. After installation, the add-on queries for a configuration file URL, and checks to see if installed extensions are whitelisted. On startup, it checks if the currently enabled extensions are not on the whitelist, and alerts the user if they aren't. 
 
@@ -14,7 +14,7 @@ var passAudit = null;
 On installation, the script prompts the user for a configuration URL (the example configuration is the default value for the prompt). 
 
 _Prompting the user for a configuration URL._  
-![Prompting the user for a configuration URL](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/doc/eventpage.js_img/eventpage.js_img00.png)
+![Prompting the user for a configuration URL](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/doc/backgroundPage.js_img/backgroundPage.js_img00.png)
 
 The file, which is formatted as JSON, downloaded with JQuery, and parsed. To learn more about the configuration file, see the following documentation files:  
 [The example configuration script](files/testconfig.json.md)  
@@ -25,8 +25,8 @@ On installation, each time Chrome is started, and when an extension is enabled o
 This requires the `chrome.management` API to run, sets the `passAudit` variable, and alerts the user of there are any non-approved extensions enabled. 
 
 _Alerting the user of non-approved extensions_  
-![Alerting the user of non-approved extensions](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/doc/eventpage.js_img/eventpage.js_img01.png)
+![Alerting the user of non-approved extensions](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/doc/backgroundPage.js_img/backgroundPage.js_img01.png)
 
-[View the source code for this file](../eventPage.js). 
+[View the source code for this file](../backgroundPage.js). 
 
 [Return to the README.md file](../README.md)

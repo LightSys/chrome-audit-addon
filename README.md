@@ -30,7 +30,7 @@ Documentation for specific files can be found in the `doc` directory. Below are 
 -- [files/testconfig.json](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md)  
 -- [libraries/jquery-3.2.0.min.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/libraries/jquery-3.2.0.min.js.md)  
 -- [changeHeader.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/changeHeader.js.md)  
--- [eventpage.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/eventpage.js.md)  
+-- [backgroundPage.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/backgroundPage.js.md)  
 -- [options.html](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/options.html.md)  
 -- [options.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/options.js.md)  
 -- [manifest.json](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/manifest.json.md)  

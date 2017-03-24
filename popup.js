@@ -1,7 +1,7 @@
-/**
- * @file
- *
- */
+/*
+* @file
+* This script sets the dynamic objects in the popup window, and sets the "Run Audit" button's action.
+*/
 
 var bg = chrome.extension.getBackgroundPage();
 var passAudit = bg.passAudit;
@@ -29,6 +29,10 @@ function show_pass_fail(passes) {
 // 	}
 // }
 
+/*
+* Triggered by clicking the "Run Audit" button in the popup, this runs an audit, 
+* and notifies the user of any failures.
+*/
 function run_audit(){
 	bg.getAndCheckConfig(suppressAlert=false);
 }

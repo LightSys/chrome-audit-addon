@@ -23,7 +23,7 @@
   "background": {
     "scripts": ["/libraries/jquery-3.2.0.min.js",
       "/libraries/cryptojs/rollups/sha256.js",
-      "eventPage.js",
+      "backgroundPage.js",
       "changeHeader.js"]
   },
 
