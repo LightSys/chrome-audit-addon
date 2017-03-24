@@ -4,21 +4,24 @@
 *
 * ChangeHeader Requirements:
 *
-* 1. Making a decision based on the above of whether the browser passes or fails the security audit.
+* 1. Making a decision based on the above of whether the browser passes or fails the security audit: it checks a variable set in
+* the other background page.
 *
 * 2. When the browser goes to a URL, the hostname is compared (via salted hashing) with a list of hashes for "secured areas".
-*  If a hash matches, and the browser is "failing" the audit, the request is blocked with an error page that lists the reasons for the failure.
+*  If a hash matches, and the browser is "failing" the audit, the request is blocked with an error page that lists the reasons for
+*  the failure: no idea how to do this. I imported CryptoJS, so whoever does this next should have a head start. The first couple
+*  lines of comments should give an idea of how to do a sha256 hash.
 *
 * 3. When the browser goes to a secured URL, an extra HTTP header, "X-Audit: passed f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2"
 *  (with a sha-256 hash* of the audit add-on's configuration) is included, so the site being accessed can assess whether or not to continue
-*  allowing the connection and sign-in.
+*  allowing the connection and sign-in: didn't get to this.
 *
 */
 
 // var SHA256 = CryptoJS.SHA256("Message");
 // console.log("Message: " + SHA256);
 
-var parsedJson = null;
+var parsedJson = null; // variable to store the config json file
 
 // get the json file and store it in the parsedJson global
 getConfigUrl(function(configUrl){
@@ -65,7 +68,8 @@ chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
 ["blocking"]
 );
 
-// This kinda works, but it's slow, and only blocks sites on a refresh
+// This function is supposed to block a secure site if the audit fails.
+// It kinda works, but it's slow, and only blocks sites on a refresh.
 
 // function disableSite(currentUrl){
 //   chrome.webRequest.onBeforeRequest.addListener(

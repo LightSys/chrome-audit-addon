@@ -12,34 +12,36 @@
 * 2. Scanning the browser's extensions/add-ons list, and comparing that with a configurable whitelist: done.
 *
 * 3. Determining how long it has been since the browser was updated: we are able to read current version, but not the latest.
+*  Apparently Chrome updates automatically, so this may not be a problem.
 *
 */
 
-//Global variable for the config URL
-//Global variable for the audit passing status
+
+
 var defaultUrl = "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json";
 var passAudit = null;
 var supressAlert = false;
 
-// Run this on installation
+// All of the next four functions get the config file and run the audit. These occur at diferent ponts of Chrome's lifecycle.
+// This runs when the addon is installed
 chrome.runtime.onInstalled.addListener(function() {
   supressAlert = false;
   getAndCheckConfig();
 });
 
-// Run this on Chrome startup
+// This runs on Chrome startup
 chrome.runtime.onStartup.addListener(function() {
   supressAlert = false;
   getAndCheckConfig();
 });
 
-// Run a check when an extensino is enabled
+// This runs when any extension is enabled
 chrome.management.onEnabled.addListener(function() {
   supressAlert = true;
   getAndCheckConfig();
 });
 
-// Run a check when an extension is disabled
+// This runs when any extension is enabled
 chrome.management.onDisabled.addListener(function() {
   supressAlert = true;
   getAndCheckConfig();
@@ -69,9 +71,9 @@ function checkConfigFile(configUrl) {
         whitelistIds.push(parsedJson.whitelist[obj].id);
       }
 
-      // compare the extensions, and get a list of bad addons back
+      // compare the extensions, and get a list of bad addons (not whitelisted) back
       compareExtensions(whitelistIds, installedExtensions, function(badAddons) {
-        //if there are bad addons, say so
+        //if there are bad addons, say so, and make the icon red
         if(badAddons.length > 0) {
           chrome.browserAction.setIcon({
             path: "icon/fail-icon48x48.png"
@@ -105,6 +107,7 @@ function compareExtensions(whitelistIds, installedExtensions, done) {
   var badAddons = new Array();
   // loop through extensions, compare with whitelist
   installedExtensions.forEach(function(extension) {
+    // if there is an installed extension that is not on the whitelist, add it to the array of bad addons
     if(whitelistIds.indexOf(extension.id) < 0) {
       badAddons.push(extension.name);
     }
