@@ -33,6 +33,15 @@ The `"browser_action"` field places an icon for the add-on in the Chrome toolbar
 There is also the option to add a `"default_icon"` field, but if it is left unspecified, it uses the closest size from the icons specified above, scales it (if it isn't already the exact same size), and then displays it. 
 
 ```json
+  "options_ui" : {
+    "page": "options.html",
+    "chrome_style": true
+  },
+```
+
+Sets the options page html file, and that it is in "Chrome style." 
+
+```json
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 ```
 
@@ -40,20 +49,27 @@ This sets the security policy to allow `eval()` and its relatives, like `setTime
 
 ```json
   "background": {
-    "scripts": ["libraries/jquery-3.2.0.min.js", "eventPage.js"],
-    "persistent": false
+    "scripts": ["libraries/jquery-3.2.0.min.js", "eventPage.js", "changeHeader.js"]
   },
 ```
 
-This section of the file specifies scripts that are to be run as event pages. When these scripts are run is specified in the scripts themselves. 
+This section of the file specifies scripts to run. When these scripts are run is specified in the scripts themselves, but if left unspecified, they are to run continuously. 
 
 ```json 
   "permissions": [
-    "management"
+    "management",
+    "webRequest",
+    "storage",
+    "webRequestBlocking",
+    "<all_urls>"
   ]
 }
 ```
 
 This requests the `"management"` permission from Chrome, which allows the add-on access to the `chrome.management` API.
+
+It also requests for `"webRequest"`, `"webRequestBlocking"`, and `"<all_urls>"` to make the required changes to headers when visiting secure sites.
+
+Finally, `"storage"` requests for persistent storage, a place to maintain a consistent configuration file URL between Chrome sessions. 
 
 [Return to the README.md file](../README.md)

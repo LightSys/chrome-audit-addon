@@ -15,7 +15,7 @@ The goal of this project would be to create a Chrome add-on which verifies that 
 
 ### Administrating for the Audit Add-on
 
-Administrators asking users to use the add-on with their websites should provide their users with a custom configuration file's URL. We've hosted [an example file](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/doc/files/testconfig.json.md), but recommend that administrators edit this to fulfill their needs. See the [page on writing the configuration file](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/writing_config.md) for details on how to write a custom configuration file.
+Administrators asking users to use the add-on with their websites should provide their users with a custom configuration file's URL. We've hosted [an example file](https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json), but recommend that administrators edit this to fulfill their needs. See the [page on writing the configuration file](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/writing_config.md) for details on how to write a custom configuration file.
 
 _Note: The url for the configuration file should not exceed 1,000 characters. If it does, the add-on may not function correctly._
 
@@ -29,7 +29,10 @@ Documentation for specific files can be found in the `doc` directory. Below are 
 -- [css/popup.css](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/css/popup.css.md)  
 -- [files/testconfig.json](https://github.com/LightSys/chrome-audit-addon/tree/master/doc/files/testconfig.json.md)  
 -- [libraries/jquery-3.2.0.min.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/libraries/jquery-3.2.0.min.js.md)  
+-- [changeHeader.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/changeHeader.js.md)  
 -- [eventpage.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/eventpage.js.md)  
+-- [options.html](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/options.html.md)  
+-- [options.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/options.js.md)  
 -- [manifest.json](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/manifest.json.md)  
 -- [popup.html](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.html.md)  
 -- [popup.js](https://github.com/LightSys/chrome-audit-addon/blob/master/doc/popup.js.md)  
