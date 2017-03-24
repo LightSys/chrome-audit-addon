@@ -30,7 +30,6 @@ getConfigUrl(function(configUrl){
 
 // Before sending the headers, check audit, append appropriate x-audit header.
 chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
-
   // if there is a json file
   if(parsedJson !== null) {
     // Get the current URL.
@@ -54,6 +53,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
             console.log("Audit passed");
           } else {
             console.log("audit didn't pass");
+            // disableSite(currentUrl); //kinda works. Slow and not always accurate.
           }
         }
       }
@@ -64,6 +64,16 @@ chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
 {urls: ["<all_urls>"]},
 ["blocking"]
 );
+
+// This kinda works, but it's slow, and only blocks sites on a refresh
+
+// function disableSite(currentUrl){
+//   chrome.webRequest.onBeforeRequest.addListener(
+//          function(details) { return {cancel: true}; },
+//          {urls: [currentUrl]},
+//          ["blocking"]);
+//
+// }
 
 /**
 * Gets the URL of the current tab
