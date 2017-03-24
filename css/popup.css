@@ -1,16 +1,16 @@
 body {
   overflow: hidden;
   margin: 0px;
-  padding: 0px;
+  padding: 10px;
   background: white;
 }
 
 div {
   text-align: center;
-  padding: 1px 3px;
+  padding: 2px 6px;
   font-family: sans-serif;
-  font-size: 0.8em;
-  width: 100px;
+  font-size: 1.6em;
+  width: 300px;
   margin-top: 1px;
-  background: #cccccc;
+  background: white;
 }

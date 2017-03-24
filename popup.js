@@ -1,6 +1,17 @@
-//Popup.js
+var bg = chrome.extension.getBackgroundPage();
 
-// $.get('https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json', function(json) {
-//   var parsedJson = JSON.parse(json);
-//     alert(parsedJson.whitelist);
-// });
+var passes = bg.passAudit;
+
+if (passes != null) {
+	if (passes) { 
+		$("#passFailLabel").text("Audit Passed");
+		$("#popupIcon").prepend("<img align='center' src='icon/icon128x128.png'>");
+	} else {
+		$("#passFailLabel").text("Audit Failed");
+		$("#popupIcon").prepend("<img align='center' src='icon/fail-icon128x128.png'>");
+	}
+} else {
+	$("#passFailLabel").text("Unknown Audit Result");
+	$("#popupIcon").prepend("<img align='center' src='icon/icon128x128.png'>");
+}
+
