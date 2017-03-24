@@ -82,6 +82,9 @@ function checkConfigFile(configUrl, suppressAlert) {
           chrome.browserAction.setIcon({
             path: "icon/icon48x48.png"
           });
+          if(!suppressAlert){
+            alert("Audit Completed Successfully!");
+          }
           passAudit = true;
         }
       });
