@@ -6,5 +6,9 @@
     {"name": "Web Developer", "id": "bfbameneiokkgbdmiekhjnmfkcnldhhm"},
     {"name": "Plus for Trello", "id": "gjjpophepkbhejnglcmkdnncmaanojkf"},
     {"name": "Chrome Remote Desktop", "id": "gbchcmhmhahfdphkhkmpfmihenigjmpp"}
+  ],
+
+  "urlList": [
+    {"url": "https://google.com"}
   ]
 }
