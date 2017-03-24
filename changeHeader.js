@@ -15,28 +15,47 @@
 *
 */
 
-var SHA256 = CryptoJS.SHA256("Message");
-console.log("Message: " + SHA256);
+// var SHA256 = CryptoJS.SHA256("Message");
+// console.log("Message: " + SHA256);
+var parsedJson = null;
+getConfigUrl(function(configUrl){
+  console.log("Result: " + configUrl);
+  $.get(configUrl, function(json) {
+    parsedJson = JSON.parse(json);
+  });
+});
 
 // Before sending the headers, check audit, append appropriate x-audit header.
 chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
-  // Get the current URL.
-  getCurrentUrl(function(currentUrl) {
-    if(currentUrl !== null && currentUrl !== undefined) {
 
-      // hash the url
-      var hashedUrl = CryptoJS.SHA256(currentUrl);
-      console.log(hashedUrl.toString());
+  if(parsedJson !== null) {
+    console.log(parsedJson.urlList[0]);
 
-      //check if audit passed
-      if(passAudit) {
-        console.log("Audit passed");
-      } else {
-        console.log("audit didn't pass");
+    // Get the current URL.
+    getCurrentUrl(function(currentUrl) {
+      if(currentUrl !== null) {
+        console.log(currentUrl);
+        // compare it to the list
+        for(obj in parsedJson.urlList) {
+            if(parsedJson.urlList[obj] == currentUrl) {
+              console.log("URL is on list!");
+            } else {
+              console.log("URL is not on list!")
+            }
+        }
+
+
+        //check if audit passed
+        if(passAudit) {
+          console.log("Audit passed");
+        } else {
+          console.log("audit didn't pass");
+        }
+
       }
+    });
+  }
 
-    }
-  });
 
 },
 //Do this for all URLs, and make it blocking (not asynchronous)
@@ -50,7 +69,9 @@ chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
 */
 function getCurrentUrl(done) {
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-    // Apparently you can do a callback from a nested function - sweet!
-    done(tabs[0].url);
+    if(tabs[0].url != undefined){
+      // Apparently you can do a callback from a nested function - sweet!
+      done(tabs[0].url);
+    }
   });
 }
