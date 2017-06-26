@@ -16,7 +16,7 @@
 *
 */
 
-// Source Tree Testing
+
 
 var defaultUrl = "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json";
 var passAudit = null;
