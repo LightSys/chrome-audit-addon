@@ -18,7 +18,7 @@
 
 
 
-var defaultUrl = "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/master/files/testconfig.json";
+var defaultUrl = "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/ivan/files/testconfig.json";
 var passAudit = null;
 
 // All of the next four functions get the config file and run the audit. These occur at diferent ponts of Chrome's lifecycle.
