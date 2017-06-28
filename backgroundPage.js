@@ -25,7 +25,7 @@ var passAudit = null;
 // This runs when the addon is installed
 chrome.runtime.onInstalled.addListener(function() {
   getAndCheckConfig(suppressAlert = false);
-});
+});	
 
 // This runs on Chrome startup
 chrome.runtime.onStartup.addListener(function() {
