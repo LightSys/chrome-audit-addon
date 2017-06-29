@@ -1,10 +1,7 @@
 {
   "whitelist": [
     {"name": "Chrome Audit Addon", "id": "piehddppjmalmacegacdmkmklomfejj"},
-    {"name": "UBlock Origin", "id": "cjpalhdlnbpafiamejdnhcphjbkeiagm"},
-    {"name": "Web Developer", "id": "bfbameneiokkgbdmiekhjnmfkcnldhhm"},
-    {"name": "Plus for Trello", "id": "gjjpophepkbhejnglcmkdnncmaanojkf"},
-    {"name": "Chrome Remote Desktop", "id": "gbchcmhmhahfdphkhkmpfmihenigjmpp"}
+    {"name": "Google Docs Offline", "id": "ghbmnnjooekpmoecnnnilnnbdlolhkhi"},
   ],
 
   "urlList": [
