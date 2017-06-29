@@ -1,7 +1,11 @@
 {
   "whitelist": [
     {"name": "Chrome Audit Addon", "id": "lfpjacfniijnjkgjdfdiiacfnlmphebg"},
-	{"name": "Application Launcher for Drive (by Google)", "id": "lmjegmlicamnimmfhcmpkclmigmmcbeh"}
+	{"name": "Application Launcher for Drive (by Google)", "id": "lmjegmlicamnimmfhcmpkclmigmmcbeh"},
+	{"name": "Google Docs", "id": "aohghmighlieiainnegkcijnfilokake"},
+	{"name": "Grammarly for Chrome", "id": "kbfnbcaeplbcioakkpcpgfkobkghlhen"},
+	{"name": "McAfee® WebAdvisor", "id": "fheoggkfdfchfphceeifdbepaooicaho"},
+	{"name": "Google Slides", "id": "aapocclcgogkmnckokdopfmhonfmgoek"}	
   ],
 
   "urlList": [
