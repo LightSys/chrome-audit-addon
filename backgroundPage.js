@@ -53,7 +53,8 @@ function checkConfigFile(configUrl, suppressAlert) {
     return;
   }
   // Get the json file from the configUrl and parse it.
-  $.ajax({url: configUrl, success: function(json) {
+  $.ajax({url: configUrl, cache: false})
+  .done(function(json) {
     console.log(json);
     var parsedJson = JSON.parse(json);
 
@@ -78,7 +79,10 @@ function checkConfigFile(configUrl, suppressAlert) {
         }
       });
     });
-  }, cache: false });
+  })(
+    .fail(function(error) {
+      console.log(error);
+    }));
 }
 
 function auditPassed(suppressAlert){
