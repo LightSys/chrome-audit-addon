@@ -1,7 +1,12 @@
 {
   "whitelist": [
     {"name": "Chrome Audit Addon", "id": "piehddppjmalmacegacdmkmklomfejjj"},
-    {"name": "Google Docs Offline", "id": "ghbmnnjooekpmoecnnnilnnbdlolhkhi"}
+    {"name": "Google Docs Offline", "id": "ghbmnnjooekpmoecnnnilnnbdlolhkhi"},
+    {"name": "Google Hangouts", "id": "nckgahadagoaajjgafhacjanaoiihapd"},
+    {"name": "Honey", "id": "bmnlcjabgnpnenekpadlanbbkooimhnj"},
+    {"name": "LastPass: Free Password Manager", "id": "hdokiejnpimakedhajhdlcegeplioahd"},
+    {"name": "Turn Off the Lights", "id": "bfbmjmiodbnnpllbbbfblcplfjjepjdn"},
+    {"name": "vidIQ Vision for YouTube", "id": "pachckjkecffpdphbpmfolblodfkgbhl"}
   ],
 
   "urlList": [
