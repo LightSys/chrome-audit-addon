@@ -79,10 +79,10 @@ function checkConfigFile(configUrl, suppressAlert) {
         }
       });
     });
-  })(
-    .fail(function(error) {
-      console.log(error);
-    }));
+  })
+  .fail(function(error) {
+    console.log(error);
+  });
 }
 
 function auditPassed(suppressAlert){
