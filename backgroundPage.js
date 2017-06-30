@@ -54,7 +54,9 @@ function checkConfigFile(configUrl, suppressAlert) {
   // Get the json file from the configUrl and parse it.
   $.get(configUrl, function(json) {
     var parsedJson = JSON.parse(json);
-
+	
+	console.log(parsedJson);
+	
     // this gets all the installed extensions. They are sent as a callback.
     getInstalledExtensions(function(installedExtensions) {
 
