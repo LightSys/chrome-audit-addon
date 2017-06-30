@@ -19,7 +19,7 @@
 
 
 var defaultUrl = "https://raw.githubusercontent.com/LightSys/chrome-audit-addon/kyle/files/testconfig.json";
-var passAudit = true;
+var passAudit = null;
 
 // All of the next four functions get the config file and run the audit. These occur at diferent ponts of Chrome's lifecycle.
 // This runs when the addon is installed
