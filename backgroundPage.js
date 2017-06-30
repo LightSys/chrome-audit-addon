@@ -209,5 +209,5 @@ function get_passAudit(done){
 
 // Gets current Auto fill settings
 chrome.privacy.services.autofillEnabled.get({}, function(details) {
-	console.log('This is your current setting ' + details);
+	console.log('This is your current setting ' + details.value);
 });
