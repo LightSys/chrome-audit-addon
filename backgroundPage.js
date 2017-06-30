@@ -53,7 +53,8 @@ function checkConfigFile(configUrl, suppressAlert) {
     return;
   }
   // Get the json file from the configUrl and parse it.
-  $.get(configUrl, function(json) {
+  $.ajax({url: configUrl, success: function(json) {
+    console.log(json);
     var parsedJson = JSON.parse(json);
 
     // this gets all the installed extensions. They are sent as a callback.
@@ -77,7 +78,7 @@ function checkConfigFile(configUrl, suppressAlert) {
         }
       });
     });
-  });
+  }, cache: false });
 }
 
 function auditPassed(suppressAlert){
