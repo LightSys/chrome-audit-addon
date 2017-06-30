@@ -48,6 +48,7 @@ chrome.management.onDisabled.addListener(function() {
 * Downloads the latest config file, and runs the audit on the browser.
 */
 function checkConfigFile(configUrl, suppressAlert) {
+  console.log(configUrl);
   if(configUrl == null) {
     return;
   }
@@ -166,6 +167,7 @@ function set_passAudit(passAudit){
 
 function getAndCheckConfig(suppressAlert = false) {
   get_options(function(configUrl) {
+    console.log(configUrl);
     if(configUrl == null){
       configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
       set_options(configUrl);
@@ -186,6 +188,7 @@ function get_options(done){
 
 function getConfigUrl(done) {
   get_options(function(configUrl) {
+    console.log(configUrl);
     if(configUrl == null){
       configUrl = prompt("Please enter the URL of the config file: ", defaultUrl);
       set_options(configUrl);
