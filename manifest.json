@@ -29,6 +29,7 @@
 
   "permissions": [
 	"contentSettings",
+	"privacy",
     "management",
     "webRequest",
     "storage",

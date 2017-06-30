@@ -206,3 +206,8 @@ function get_passAudit(done){
     done(items.PassAudit);
   });
 }
+
+// Gets current Auto fill settings
+chrome.privacy.services.autofillEnabled.get({}, function(details) {
+	console.log('This is your current setting ' + details);
+});
