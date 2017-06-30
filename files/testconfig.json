@@ -1,7 +1,6 @@
 {
   "whitelist": [
-    {"name": "Chrome Audit Addon", "id": "piehddppjmalmacegacdmkmklomfejjj"},
-    {"name": "Google Docs Offline", "id": "ghbmnnjooekpmoecnnnilnnbdlolhkhi"},
+
   ],
 
   "urlList": [
