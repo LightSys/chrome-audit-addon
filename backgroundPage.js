@@ -246,7 +246,7 @@ function getConfigUrl(done) {
 }
 
 function get_currentBrowserConfig(currentConfigList){
-  chrome.storage.sync.get({"currentBrowserConfig", function(items){
+  chrome.storage.sync.get("currentBrowserConfig", function(items){
 	done(items.CurrentBrowserConfig);
   });
 }
