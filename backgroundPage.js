@@ -85,20 +85,14 @@ function auditPassed(suppressAlert){
     path: "icon/icon48x48.png"
   });
   if(!suppressAlert){
-    alert("Audit Completed Successfully!");
+    alert("Audit Completed Successfully! \n"
+	  + "\n These are you current browser configurations: \n"
+	  + currentConfigList.join("\n");
 	
-	// Gets current Auto fill settings and return result to the user
-	chrome.privacy.services.autofillEnabled.get({}, function(details) {
-		if(details.value === true){
-			alert("\nAutofill is enabled! Please Disable Now!");
-		}
-		else{
-			alert("\nAutofill is disabled! You are protected!");
-		}	
-	});
   }
   passAudit = true;
   set_badAddons(badAddons=null);
+  set_currentBrowserConfig(currentConfigList);
 }
 
 function auditFailed(badAddons, suppressAlert){
@@ -109,23 +103,52 @@ function auditFailed(badAddons, suppressAlert){
   if(!suppressAlert){
     alert("These addons are not in the whitelist: \n"
       + badAddons.join("\n")
-      + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing. \n");
-	  
-	// Gets current Auto fill settings and return result to the user
-	chrome.privacy.services.autofillEnabled.get({}, function(details) {
-		if(details.value === true){
-			alert("\nAutofill is enabled! Please Disable Now!");
-		}
-		else{
-			alert("\nAutofill is disabled! You are protected!");
-		}	
-	});
+      + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing. \n"
+	  + "\n These are you current browser configurations: \n"
+	  + currentConfigList.join("\n");
   }
   //set the global and config variable
   passAudit = false;
   set_badAddons(badAddons);
+  set_currentBrowserConfig(currentConfigList);
 }
 
+/**
+* Gets a list of current browser configurations.
+* @Returns list of currently set browser config.
+*/
+function currentBrowserConfig() {
+	//gets the current browser config settings and adds them to a list
+	var currentConfigList = new Array();
+	
+	chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(details) {
+		if(details.value === true) {
+			currentConfigList.push("IP Handling Policy is enabled!");
+		}
+		else {
+			currentConfigList.push("IP Handling Policy is disabled!");
+		}
+	});
+	
+	chrome.privacy.services.passwordSavingEnabled.get({}, function(details) {
+		if(details.value === true) {
+				currentConfigList.push("Password Saving is enabled!");
+		}
+		else {
+			currentConfigList.push("Password Saving is disabled!");
+		}
+	});
+	
+	chrome.privacy.services.safeBrowsingEnabled.get({}, function(details) {
+		if(details.value === true) {
+				currentConfigList.push("Safe Browsing is enabled!");
+		}
+		else {
+			currentConfigList.push("Safe Browsing is disabled!");
+		}
+	});
+	done(currentConfigList);
+}
 
 /**
 * Compares two lists of extensions: a whitelist, and those currently
@@ -183,6 +206,12 @@ function set_badAddons(badAddons){
 function set_passAudit(passAudit){
   chrome.storage.sync.set({"PassAudit": passAudit}, function(){
     console.log("Wrote PassAudit successfully");
+  });
+}
+
+function set_currentBrowserConfig(currentConfigList){
+  chrome.storage.sync.set({"CurrentBrowserConfig": currentConfigList}, function(){
+	console.log("Wrote CurrentBrowserConfig successfully");
   });
 }
 
