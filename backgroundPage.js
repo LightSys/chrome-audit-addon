@@ -87,7 +87,7 @@ function auditPassed(suppressAlert){
   if(!suppressAlert){
     alert("Audit Completed Successfully! \n"
 	  + "\n These are you current browser configurations: \n"
-	  + currentConfigList.join("\n");
+	  + currentConfigList.join("\n"));
 	
   }
   passAudit = true;
@@ -105,7 +105,7 @@ function auditFailed(badAddons, suppressAlert){
       + badAddons.join("\n")
       + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing. \n"
 	  + "\n These are you current browser configurations: \n"
-	  + currentConfigList.join("\n");
+	  + currentConfigList.join("\n"));
   }
   //set the global and config variable
   passAudit = false;
