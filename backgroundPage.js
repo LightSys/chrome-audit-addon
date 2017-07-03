@@ -86,6 +86,16 @@ function auditPassed(suppressAlert){
   });
   if(!suppressAlert){
     alert("Audit Completed Successfully!");
+	
+	// Gets current Auto fill settings and return result to the user
+	chrome.privacy.services.autofillEnabled.get({}, function(details) {
+		if(details.value === true){
+			alert("\nAutofill is enabled! Please Disable Now!");
+		}
+		else{
+			alert("\nAutofill is disabled! You are protected!");
+		}	
+	});
   }
   passAudit = true;
   set_badAddons(badAddons=null);
@@ -99,24 +109,23 @@ function auditFailed(badAddons, suppressAlert){
   if(!suppressAlert){
     alert("These addons are not in the whitelist: \n"
       + badAddons.join("\n")
-      + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
+      + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing. \n");
+	  
+	// Gets current Auto fill settings and return result to the user
+	chrome.privacy.services.autofillEnabled.get({}, function(details) {
+		if(details.value === true){
+			alert("\nAutofill is enabled! Please Disable Now!");
+		}
+		else{
+			alert("\nAutofill is disabled! You are protected!");
+		}	
+	});
   }
   //set the global and config variable
   passAudit = false;
   set_badAddons(badAddons);
 }
 
-function currentBrowserConfig(){
-	// Gets current Auto fill settings and return result to the user
-	chrome.privacy.services.autofillEnabled.get({}, function(details) {
-		if(details.value === true){
-			alert("Autofill is enabled! Please Disable Now!");
-		}
-		else{
-			alert("Autofill is disabled! You are protected!");
-		}	
-	});
-}
 
 /**
 * Compares two lists of extensions: a whitelist, and those currently
