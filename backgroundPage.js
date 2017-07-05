@@ -85,14 +85,10 @@ function auditPassed(suppressAlert){
     path: "icon/icon48x48.png"
   });
   if(!suppressAlert){
-    alert("Audit Completed Successfully! \n"
-	  + "\n These are you current browser configurations: \n"
-	  + currentConfigList.join("\n"));
-	
+    alert("Audit Completed Successfully!");
   }
   passAudit = true;
   set_badAddons(badAddons=null);
-  set_currentBrowserConfig(currentConfigList);
 }
 
 function auditFailed(badAddons, suppressAlert){
@@ -103,52 +99,13 @@ function auditFailed(badAddons, suppressAlert){
   if(!suppressAlert){
     alert("These addons are not in the whitelist: \n"
       + badAddons.join("\n")
-      + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing. \n"
-	  + "\n These are you current browser configurations: \n"
-	  + currentConfigList.join("\n"));
+      + "\n\nPlease uninstall or disable these addons and restart Chrome before continuing.");
   }
   //set the global and config variable
   passAudit = false;
   set_badAddons(badAddons);
-  set_currentBrowserConfig(currentConfigList);
 }
 
-/**
-* Gets a list of current browser configurations.
-* @Returns list of currently set browser config.
-*/
-function currentBrowserConfig() {
-	//gets the current browser config settings and adds them to a list
-	var currentConfigList = new Array();
-	
-	chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(details) {
-		if(details.value === true) {
-			currentConfigList.push("IP Handling Policy is enabled!");
-		}
-		else {
-			currentConfigList.push("IP Handling Policy is disabled!");
-		}
-	});
-	
-	chrome.privacy.services.passwordSavingEnabled.get({}, function(details) {
-		if(details.value === true) {
-				currentConfigList.push("Password Saving is enabled!");
-		}
-		else {
-			currentConfigList.push("Password Saving is disabled!");
-		}
-	});
-	
-	chrome.privacy.services.safeBrowsingEnabled.get({}, function(details) {
-		if(details.value === true) {
-				currentConfigList.push("Safe Browsing is enabled!");
-		}
-		else {
-			currentConfigList.push("Safe Browsing is disabled!");
-		}
-	});
-	done(currentConfigList);
-}
 
 /**
 * Compares two lists of extensions: a whitelist, and those currently
@@ -209,12 +166,6 @@ function set_passAudit(passAudit){
   });
 }
 
-function set_currentBrowserConfig(currentConfigList){
-  chrome.storage.sync.set({"CurrentBrowserConfig": currentConfigList}, function(){
-	console.log("Wrote CurrentBrowserConfig successfully");
-  });
-}
-
 function getAndCheckConfig(suppressAlert = false) {
   get_options(function(configUrl) {
     if(configUrl == null){
@@ -242,12 +193,6 @@ function getConfigUrl(done) {
       set_options(configUrl);
     }
     done(configUrl);
-  });
-}
-
-function get_currentBrowserConfig(currentConfigList){
-  chrome.storage.sync.get("currentBrowserConfig", function(items){
-	done(items.CurrentBrowserConfig);
   });
 }
 
