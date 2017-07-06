@@ -18,8 +18,8 @@
 *
 */
 
-// var SHA256 = CryptoJS.SHA256("Message");
-// console.log("Message: " + SHA256);
+var SHA256 = CryptoJS.SHA256("Message");
+console.log("Message: " + SHA256);
 
 var parsedJson = null; // variable to store the config json file
 
