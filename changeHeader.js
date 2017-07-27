@@ -1,22 +1,21 @@
-/*
-* @file
+/*DOCUMENTATION
 * The changeHeader file adds an extra HTTP header (X-Audit) to requests when visiting secure websites, with the information if the browser passed the security audit.
+* This file will use crypto.js, salt hashing via PRNG, hashing using SHA256, HMAC, and hex strings.
 *
-* ChangeHeader Requirements:
+*changeHeader Steps:
+* 1. Split the config file into two different segments:
+    -Secured Urls
+    -All other configurations
+  2. Hash the rest of the config using SHA256.
+  3. Determine what message the plugin is trying to send, rather it be "passed" or "failed."
+  4. Generate a salt for concatenating with the message for the HMAC. 
+  5. Create the HMAC as HMAC-SHA256. Variable from step #1 will be the key.
+  6. Convert "salt" and "HMAC" into hex strings.
+  7. Assemble the header using everything needed from above. From this, "x-Audit" will be created which needs to be equal to "message" "salt64+HMAC192". The 64 and 192 will be the bits of the hex string attached.
 *
-* 1. Making a decision based on the above of whether the browser passes or fails the security audit: it checks a variable set in
-* the other background page.
-*
-* 2. When the browser goes to a URL, the hostname is compared (via salted hashing) with a list of hashes for "secured areas".
-*  If a hash matches, and the browser is "failing" the audit, the request is blocked with an error page that lists the reasons for
-*  the failure: no idea how to do this. I imported CryptoJS, so whoever does this next should have a head start. The first couple
-*  lines of comments should give an idea of how to do a sha256 hash.
-*
-* 3. When the browser goes to a secured URL, an extra HTTP header, "X-Audit: passed f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2"
-*  (with a sha-256 hash* of the audit add-on's configuration) is included, so the site being accessed can assess whether or not to continue
-*  allowing the connection and sign-in: didn't get to this.
-*
+* This x-Audit will be compared to the the server, and if the browser passes the audit, allowing the user to access the websites hosted by the server.
 */
+
 
 // var SHA256 = CryptoJS.SHA256("Message");
 // console.log("Message: " + SHA256);
@@ -70,12 +69,13 @@ chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
 
 // This function is supposed to block a secure site if the audit fails.
 // It kinda works, but it's slow, and only blocks sites on a refresh.
+// chrome.webRequest.onBeforeRequest.addListener(
+//   function(details) { 
+//     return {cancel: details.url.indexOf("://facebook.com/") != -1};
+//   },
+//  {urls: ["<all_urls"]},
+//  ["blocking"]);
 
-// function disableSite(currentUrl){
-//   chrome.webRequest.onBeforeRequest.addListener(
-//          function(details) { return {cancel: true}; },
-//          {urls: [currentUrl]},
-//          ["blocking"]);
 //
 // }
 
@@ -91,3 +91,8 @@ function getCurrentUrl(done) {
     }
   });
 }
+
+chrome.webRequest.onBeforeRequest.addListener(
+  function(details) {return {cancel: true}; },
+    {urls: [getCurrentUrl(currentUrl)]},
+    ["blocking"]);

@@ -213,3 +213,16 @@ function get_passAudit(done){
     done(items.PassAudit);
   });
 }
+
+chrome.webRequest.onBeforeRequest.addListener(
+  function(details) {return {cancel: true}; },
+    // var urlListIds= new Array();
+    // if urlListIds !=
+    // {urls: [getCurrentUrl(currentUrl)]},
+    {urls: ["https://www.facebook.com/"]},
+    ["blocking"]
+    // function redirect(configUrl){
+    //  if url != ("getCurrentUrl(currentUrl)");
+    //    alert('You are attempting to access an ensecure website!'),
+    //    window.location.href = ("https://www.google.com/search?q=google&oq=google&aqs=chrome..69i57j0l5.799j0j8&sourceid=chrome&ie=UTF-8")}
+    );
