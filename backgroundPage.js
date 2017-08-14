@@ -51,8 +51,10 @@ function checkConfigFile(configUrl, suppressAlert) {
   if(configUrl == null) {
     return;
   }
+  
   // Get the json file from the configUrl and parse it.
-  $.get(configUrl, function(json) {
+  $.ajax({url: configUrl, cache: false})
+  .done(function(json) {
 	console.log(json);
     var parsedJson = JSON.parse(json);
 	
@@ -66,7 +68,6 @@ function checkConfigFile(configUrl, suppressAlert) {
       for (var obj in parsedJson.whitelist) {
         whitelistIds.push(parsedJson.whitelist[obj].id);
       }
-
       // compare the extensions, and get a list of bad addons (not whitelisted) back
       compareExtensions(whitelistIds, installedExtensions,
         function(badAddons) {
@@ -77,6 +78,9 @@ function checkConfigFile(configUrl, suppressAlert) {
         }
       });
     });
+  })
+  .fail(function(error) {
+    console.log(error);
   });
 }
 

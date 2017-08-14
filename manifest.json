@@ -23,11 +23,15 @@
   "background": {
     "scripts": ["/libraries/jquery-3.2.0.min.js",
       "/libraries/cryptojs/rollups/sha256.js",
+	  "/libraries/cryptojs/rollups/hmac-sha256.js",
+	  "/libraries/cryptojs/components/enc-base64-min.js",
+	  "/libraries/cryptojs/components/enc-utf16-min.js",
       "backgroundPage.js",
       "changeHeader.js"]
   },
 
   "permissions": [
+	"tabs",
 	"contentSettings",
 	"privacy",
     "management",

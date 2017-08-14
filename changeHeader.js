@@ -18,76 +18,84 @@
 *
 */
 
-var SHA256 = CryptoJS.SHA256("Message");
-console.log("Message: " + SHA256);
 
-var parsedJson = null; // variable to store the config json file
-
-// get the json file and store it in the parsedJson global
+// get the json file and store it in the StringifiedConfig global
 getConfigUrl(function(configUrl){
   console.log("Result: " + configUrl);
-  $.get(configUrl, function(json) {
-    parsedJson = JSON.parse(json);
+  /*$.get(configUrl, function(json) {
+	var parsed = JSON.parse(json);
+	var stringifiedConfig = JSON.stringify(parsed.whitelist);
+	console.log("StringifiedConfig: " + stringifiedConfig);
+  });*/
+  $.ajax({url: configUrl, cache: false})
+  .done(function(json) {
+    var parsed = JSON.parse(json);
+	var stringifiedConfig = JSON.stringify(parsed.whitelist);
+	var auditMessage = null;
+	var saltPrng = null;
+	var trimmedHmac = null;
+	var hexSalt = null;
+	var xAudit = "";
+	var prng = new Uint32Array(1);
+	passAudit = false;
+	
+	console.log("StringifiedConfig: " + stringifiedConfig);
+	
+	console.log("Audit Status: " + passAudit);
+	
+	function show_pass_fail(passes) {
+		var messageStatus = "";
+		
+		if (passes != null) {
+			if (passes) {
+				messageStatus = "Passed";
+			} else {
+				messageStatus = "Failed";
+			}
+		} else {
+			messageStatus = "Unknown";
+		}
+		return messageStatus;
+	}
+	
+	auditMessage = show_pass_fail(passAudit);
+	
+	//Use SHA256 to turn the configuration file into a key"
+	var hashKey = CryptoJS.SHA256(stringifiedConfig);
+	console.log("Hash Key: " + hashKey+ "\nShow Message: " + auditMessage);
+	
+	saltPrng = window.crypto.getRandomValues(prng);
+	
+	console.log("Salted PRNG: " + saltPrng);
+	
+	createHmac_And_Assemble(hashKey, saltPrng, auditMessage, function (hMACKey){
+		var convertString = new Number(saltPrng);
+		
+		hmacLength = hMACKey.length - 16;
+		trimmedHmac = hMACKey.substring(0, hmacLength);
+		hexSalt = (convertString).toString(16).toUpperCase();
+		
+		xAudit = auditMessage + " " + hexSalt + trimmedHmac;
+		 
+		console.log("This is the HMAC: " + hMACKey + "\nLength: " + hmacLength + "\nTrimmed HMAC: " + trimmedHmac);
+		console.log("X-Audit: " + xAudit);
+		
+		$.post('http://10.5.128.71', 'xAudit', function(status) {
+			alert("Status: " + status);
+		});
+	});
+ })
+  .fail(function(error) {
+    console.log(error);
   });
 });
 
-// Before sending the headers, check audit, append appropriate x-audit header.
-chrome.webRequest.onBeforeSendHeaders.addListener( function(details) {
-  // if there is a json file
-  if(parsedJson !== null) {
-    // Get the current URL.
-    getCurrentUrl(function(currentUrl) {
-      if(currentUrl !== null) {
-        var isOnList = false; // initialize and declare bool to check if the url is on the list or not
-        // compare it to each item in the list
-        for(obj in parsedJson.urlList) {
-          // if there is a match, set the bool to true
-            if(parsedJson.urlList[obj].url == currentUrl) {
-              isOnList = true;
-            }
-        }
-
-        // if the url was on the list
-        if(isOnList){
-          // run audits again to see if things have changed
-          getAndCheckConfig(supressAlert = true);
-          //check if audit passed
-          if(passAudit) {
-            console.log("Audit passed");
-          } else {
-            console.log("audit didn't pass");
-            // disableSite(currentUrl); //kinda works. Slow and not always accurate.
-          }
-        }
-      }
-    });
-  }
-},
-//Do this for all URLs, and make it blocking (not asynchronous)
-{urls: ["<all_urls>"]},
-["blocking"]
-);
-
-// This function is supposed to block a secure site if the audit fails.
-// It kinda works, but it's slow, and only blocks sites on a refresh.
-
-// function disableSite(currentUrl){
-//   chrome.webRequest.onBeforeRequest.addListener(
-//          function(details) { return {cancel: true}; },
-//          {urls: [currentUrl]},
-//          ["blocking"]);
-//
-// }
-
-/**
-* Gets the URL of the current tab
-* @Return the URL of the current tab, once it's been determined.
-*/
-function getCurrentUrl(done) {
-  chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-    if(tabs[0].url != undefined){
-      // Apparently you can do a callback from a nested function - sweet!
-      done(tabs[0].url);
-    }
-  });
+function createHmac_And_Assemble(key, salt, message, done){
+	var saltedMessage = salt + message;
+	var hMAC = CryptoJS.HmacSHA256(saltedMessage, key).toString();
+	
+	done(hMAC);
 }
+//This function gets and separates the UrlList from the rest of the configuration
+//function splitConfig(done){
+	
