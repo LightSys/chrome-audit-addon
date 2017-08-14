@@ -4,31 +4,38 @@
 *
 * ChangeHeader Requirements:
 *
-* 1. Making a decision based on the above of whether the browser passes or fails the security audit: it checks a variable set in
-* the other background page.
+* 0. Split Configuration file into two; Secured URLs and the rest of the configuration (Currently only split and used the whitelist).
 *
-* 2. When the browser goes to a URL, the hostname is compared (via salted hashing) with a list of hashes for "secured areas".
-*  If a hash matches, and the browser is "failing" the audit, the request is blocked with an error page that lists the reasons for
-*  the failure: no idea how to do this. I imported CryptoJS, so whoever does this next should have a head start. The first couple
-*  lines of comments should give an idea of how to do a sha256 hash.
+* 1. Hash the configuration file (whitelist in this case) using sha256 (done).
 *
-* 3. When the browser goes to a secured URL, an extra HTTP header, "X-Audit: passed f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2"
-*  (with a sha-256 hash* of the audit add-on's configuration) is included, so the site being accessed can assess whether or not to continue
-*  allowing the connection and sign-in: didn't get to this.
+* 2. Determine the message from the add-on audit whether it is a "pass" or a "fail" (Right now it is hardcoded to "fail" because it doesn't correctly return the message. This problem could be from the background.js).
+*
+* 3. Generate a salt via the Cryptological Psuedo Random Number Generator (CPRNG) (done).
+*
+* 4. Create HMAC using HMAC-SHA256. First concatenate the message ("pass" or "fail") with the generated salt then get HMAC using config hash from step 1 as the key (done).
+*
+* 5. Assemble Header: The X-Audit header will be a concatenation of the message, a 64 bit salt converted to hex, and the HMAC trimmed to 192 bits (done).
+*
+* 6. Send the X-Audit to the host server (I am getting the error "No Access-Control-Allow-Origin").
 *
 */
 
 
-// get the json file and store it in the StringifiedConfig global
+// get the json file and X-Audit header
 getConfigUrl(function(configUrl){
+	
+	//Checks if there is anything in the configUrl
   console.log("Result: " + configUrl);
   /*$.get(configUrl, function(json) {
 	var parsed = JSON.parse(json);
 	var stringifiedConfig = JSON.stringify(parsed.whitelist);
 	console.log("StringifiedConfig: " + stringifiedConfig);
   });*/
+  
+  //gets json file from configUrl
   $.ajax({url: configUrl, cache: false})
   .done(function(json) {
+	  //parses file and a store in variable, then stringifies and stores.
     var parsed = JSON.parse(json);
 	var stringifiedConfig = JSON.stringify(parsed.whitelist);
 	var auditMessage = null;
@@ -80,9 +87,9 @@ getConfigUrl(function(configUrl){
 		console.log("This is the HMAC: " + hMACKey + "\nLength: " + hmacLength + "\nTrimmed HMAC: " + trimmedHmac);
 		console.log("X-Audit: " + xAudit);
 		
-		$.post('http://10.5.128.71', 'xAudit', function(status) {
+		/*$.post('http://10.5.128.71', 'xAudit', function(status) {
 			alert("Status: " + status);
-		});
+		});*/
 	});
  })
   .fail(function(error) {
